@@ -1,0 +1,33 @@
+body {
+    margin: 0;
+    background-color: #f8f9fa;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
+    background-color: #787878;
+}
+
+/* Default button styling */
+.nav-links .btn {
+    text-decoration: none; /* Remove underline */
+    color: #000000; /* Initial text color (blue) */
+    font-size: 16px; /* Adjust font size */
+    font-weight: bold; /* Make text bold */
+    background: none; /* Ensure no background styles */
+    border: none; /* Remove border */
+    padding: 20; /* Optional: remove default padding */
+}
+
+/* Hover effect: Change text color only */
+.nav-links .btn:hover {
+    color: #e3e3e3; /* Change text color to white */
+}
+
+
+.content-container {
+    padding: 50px; /* Add padding only to the content container */
+}
