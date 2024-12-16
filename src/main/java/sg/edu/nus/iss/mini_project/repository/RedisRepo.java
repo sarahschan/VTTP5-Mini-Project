@@ -1,5 +1,10 @@
 package sg.edu.nus.iss.mini_project.repository;
 
+import java.time.Duration;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -22,4 +27,39 @@ public class RedisRepo {
         return redisTemplate.opsForHash().get(redisKey, hashKey);
     }
 
+    public List<Object> getAllValues(String redisKey) {
+        return redisTemplate.opsForHash().values(redisKey);
+    }
+
+    public long delete(String redisKey, String hashKey) {
+        return redisTemplate.opsForHash().delete(redisKey, hashKey);
+    }
+
+
+
+
+    
+    public Boolean hasHashKey(String redisKey, String hashKey){
+        return redisTemplate.opsForHash().hasKey(redisKey, hashKey);
+    }
+
+    // <Object, Object> = <HashKeys, HashValues>
+    public Map<Object, Object> getEntries(String redisKey){
+        return redisTemplate.opsForHash().entries(redisKey);
+    }
+
+    public Set<Object> getKeys(String redisKey) {
+        return redisTemplate.opsForHash().keys(redisKey);
+    }
+
+
+
+    public Long size(String redisKey){
+        return redisTemplate.opsForHash().size(redisKey);
+    }
+
+    public Boolean expire(String redisKey, Long expireValue){
+        Duration expireDuration = Duration.ofSeconds(expireValue);
+        return redisTemplate.expire(redisKey, expireDuration);
+    }
 }

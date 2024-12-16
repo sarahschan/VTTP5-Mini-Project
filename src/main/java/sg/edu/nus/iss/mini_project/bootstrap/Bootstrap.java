@@ -13,6 +13,7 @@ import sg.edu.nus.iss.mini_project.constant.Constant;
 import sg.edu.nus.iss.mini_project.model.Member;
 import sg.edu.nus.iss.mini_project.repository.RedisRepo;
 import sg.edu.nus.iss.mini_project.serializers.MemberSerializer;
+import sg.edu.nus.iss.mini_project.service.NameService;
 
 @Component
 public class Bootstrap implements CommandLineRunner{
@@ -22,6 +23,9 @@ public class Bootstrap implements CommandLineRunner{
     
     @Autowired
     MemberSerializer memberSerializer;
+
+    @Autowired
+    NameService nameService;
     
     @Override
     public void run(String... args) throws Exception {
@@ -44,8 +48,8 @@ public class Bootstrap implements CommandLineRunner{
             
                 String[] details = line.split(",");
 
-                String firstName = formatName(details[0].trim());
-                String lastName = formatName(details[1].trim());
+                String firstName = nameService.formatName(details[0].trim());
+                String lastName = nameService.formatName(details[1].trim());
                 String email = details[2].trim();
                 String password = details[3].trim();
 
@@ -62,31 +66,6 @@ public class Bootstrap implements CommandLineRunner{
         }
 
         System.out.println("Saved all members to redis");
-    }
-
-
-    private String formatName(String name) {
-
-        if (name == null || name.isEmpty()) {
-            return name;
-        }
-    
-        // remove any non alphabets, replace with a space
-        name = name.replaceAll("[^a-zA-Z\\s]", " ").trim();
-    
-        String[] parts = name.trim().toLowerCase().split("\\s+"); // Split by whitespace
-        StringBuilder capitalized = new StringBuilder();
-    
-        for (String part : parts) {
-            if (!part.isEmpty()) {
-                capitalized.append(Character.toUpperCase(part.charAt(0))) // Capitalize first letter
-                           .append(part.substring(1)) // Append the rest of the word
-                           .append(" "); // Add a space after each word
-            }
-        }
-    
-        return capitalized.toString().trim(); // Remove the trailing space
-
     }
 
 }

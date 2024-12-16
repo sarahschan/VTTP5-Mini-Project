@@ -2,10 +2,23 @@ package sg.edu.nus.iss.mini_project.model;
 
 import java.util.List;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
 public class Member {
     
+        @Size(min = 3, max = 30, message = "First name must be between 3 and 30 characters")
+        @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Name can only contain alphabets and spaces")
     private String firstName;
+
+        @Size(min = 3, max = 30, message = "Last name must be between 3 and 30 characters")
+        @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Name can only contain alphabets and spaces")
     private String lastName;
+
+        @NotBlank(message = "Please enter an email address")
+        @Email(message = "Please enter a valid email address")
     private String email;
     private String password;
     
