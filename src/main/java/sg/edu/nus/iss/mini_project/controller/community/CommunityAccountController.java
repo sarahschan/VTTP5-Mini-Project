@@ -1,7 +1,6 @@
-package sg.edu.nus.iss.mini_project.controller.admin;
+package sg.edu.nus.iss.mini_project.controller.community;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,55 +8,58 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpSession;
 import sg.edu.nus.iss.mini_project.model.Member;
-import sg.edu.nus.iss.mini_project.service.GeneralService;
+import sg.edu.nus.iss.mini_project.service.MemberService;
 import sg.edu.nus.iss.mini_project.service.LoginService;
 
-
 @Controller
-@RequestMapping("/admin/account")
-public class AdminAccount {
+@RequestMapping("/community/account")
+public class CommunityAccountController {
     
     @Autowired
-    GeneralService generalService;
+    MemberService memberService;
 
     @Autowired
     LoginService loginService;
 
-    @Value("${admin.email}")
-    private String adminEmail;
-    
+
 
     @GetMapping()
-    public String accountDetails(Model model){
+    public String accountDetails(Model model, HttpSession session){
 
-        Member member = generalService.getMember(adminEmail);
+        String memberEmail = session.getAttribute("userID").toString();
+        Member member = memberService.getMember(memberEmail);
+
         model.addAttribute("member", member);
-        
-        return "admin/account";
+
+        return "community/account";
     }
-    
+
+
 
     @GetMapping("/changepassword")
     public String changePassword(){
-        return "admin/changePassword";
+        return "community/changePassword";
     }
+
+
 
     @PostMapping("/changepassword")
     public String handleChangePassword(@RequestParam("currentPassword") String currentPassword, @RequestParam("newPassword") String newPassword, @RequestParam("repeatPassword") String repeatPassword, Model model){
 
         if (!loginService.checkPassword(currentPassword)){
             model.addAttribute("wrongPassword", "Existing password does not match");
-            return "admin/changePassword";
+            return "community/changePassword";
         }
 
         if (!loginService.matchPassword(newPassword, repeatPassword)){
             model.addAttribute("noMatch", "New password and repeat password must match");
-            return "admin/changePassword";
+            return "community/changePassword";
         }
 
         loginService.changePassword(newPassword);
 
-        return "redirect:/admin/account";
+        return "redirect:/community/account";
     }
 }

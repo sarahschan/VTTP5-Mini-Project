@@ -26,7 +26,6 @@ public class LoginController {
     private String adminEmail;
     
 
-    // Serve login page
     @GetMapping()
     public String loginPage(Model model){
         
@@ -38,22 +37,20 @@ public class LoginController {
     }
 
 
-    // Handle login page
     @PostMapping("login")
     public String handleLogin(@Valid @ModelAttribute("login") Login login, BindingResult result, Model model, HttpSession session){
         
-        // validate fields
         if (result.hasErrors()) {
             model.addAttribute("login", login);
             return "login";
         }
 
-        // validate login credentials
+
         String email = login.getEmail();
         String password = login.getPassword();
-        
         Boolean isValid = loginService.validateLogin(email, password);
 
+        
         if (!isValid) {
             model.addAttribute("loginError", "Invalid email and/or password");
             return "login";
@@ -71,7 +68,7 @@ public class LoginController {
             } else {
 
                 session.setAttribute("userRole", "community");
-                return "redirect:/home";
+                return "redirect:/community/home";
             }
             
         }

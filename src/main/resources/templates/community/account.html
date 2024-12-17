@@ -26,8 +26,34 @@
     <br>
 
     <div class="content-container">
-        <h1>Community Home</h1>
+        <div class="content-header d-flex justify-content-between align-items-center">
+            <h1>Account Details</h1>
+        </div>
+
+        <table class="table table-striped">
+            <tr>
+                <th>First Name</th>
+                <td th:text="${member.firstName}"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>Last Name</th>
+                <td th:text="${member.lastName}"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>Email address</th>
+                <td th:text="${member.email}"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td th:text="${#strings.repeat('*', #strings.length(member.password))}"></td>
+                <td><a th:href="@{/community/account/changepassword}" class="btn btn-danger btn-sm">Change Password</a></td>
+            </tr>
+        </table>
     </div>
 
 </body>
+
 </html>

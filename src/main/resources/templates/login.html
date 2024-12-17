@@ -28,6 +28,7 @@
                 <div class="mb-3">
                     <input type="password" class="form-control" th:field="*{password}" placeholder="password">
                     <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                    <div class="text-danger" th:if="${loginError}" th:text="${loginError}"></div>
                 </div>
 
                 <div class="form-button-container">

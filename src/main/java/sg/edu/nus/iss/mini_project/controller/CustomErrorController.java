@@ -45,13 +45,19 @@ public class CustomErrorController implements ErrorController{
         model.addAttribute("status", status);
         model.addAttribute("message", message);
 
-        if (session.getAttribute("userID").equals(adminEmail)){
+        Object userID = session.getAttribute("userID");
 
+        if (userID == null){
+            return "redirect:/";
+
+
+        } else if (userID.equals(adminEmail)) {
             return "admin/errorAdmin";
 
-        }
 
-        return "community/errorCommunity";
+        } else {
+            return "community/errorCommunity";
+        }
 
     }
 }

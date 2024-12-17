@@ -9,7 +9,7 @@ import sg.edu.nus.iss.mini_project.repository.RedisRepo;
 import sg.edu.nus.iss.mini_project.serializers.MemberSerializer;
 
 @Service
-public class GeneralService {
+public class MemberService {
     
     @Autowired
     RedisRepo redisRepo;

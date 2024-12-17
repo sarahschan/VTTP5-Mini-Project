@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import sg.edu.nus.iss.mini_project.constant.Constant;
 import sg.edu.nus.iss.mini_project.model.Member;
 import sg.edu.nus.iss.mini_project.repository.RedisRepo;
@@ -20,7 +19,7 @@ public class LoginService {
     MemberSerializer memberSerializer;
 
     @Autowired
-    GeneralService generalService;
+    MemberService memberService;
 
     @Autowired
     HttpServletRequest request;
@@ -47,7 +46,7 @@ public class LoginService {
 
         String userEmail = request.getSession().getAttribute("userID").toString();
 
-        Member member = generalService.getMember(userEmail);
+        Member member = memberService.getMember(userEmail);
 
         if (member.getPassword().equals(currentPassword)){
             return true;
@@ -68,11 +67,11 @@ public class LoginService {
         
         String userEmail = request.getSession().getAttribute("userID").toString();
 
-        Member member = generalService.getMember(userEmail);
+        Member member = memberService.getMember(userEmail);
 
         member.setPassword(newPassword);
 
-        generalService.updateMember(member);
+        memberService.updateMember(member);
 
     }
 

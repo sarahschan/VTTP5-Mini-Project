@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Host A New Event</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    
+    <header>
+        <img src="/images/bft_logo.png" alt="Gym Logo" width="120" height="100">
+        
+        <div class="nav-links">
+            <a th:href="@{/community/events}" class="btn fs-6 fw-bold">EVENTS</a>
+            <a th:href="@{/community/attending}" class="btn fs-6 fw-bold">ATTENDING</a>
+            <a th:href="@{/community/hosting}" class="btn fs-6 fw-bold">HOSTING</a>
+            <a th:href="@{/community/account}" class="btn fs-6 fw-bold">ACCOUNT DETAILS</a>
+            <a th:href="@{/community/logout}" class="btn fs-6 fw-bold">LOGOUT</a>
+        </div>
+    </header>
+
+    <br>
+
+    <div class="content-container">
+        <div class="content-header d-flex justify-content-between align-items-center">
+            <h1>Host A New Event</h1>
+        </div>
+
+        <form method="POST" th:action="@{/community/hosting/new}" th:object="${event}">
+            <div class="mb-3">
+                <label class="form-label">Event Name</label>
+                <input type="text" class="form-control" th:field="*{eventName}">
+                <div class="text-danger" th:if="${#fields.hasErrors('eventName')}" th:errors="*{eventName}"></div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Event Description</label>
+                <textarea class="form-control" th:field="*{description}" rows="2"></textarea>
+                <div class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Your Contact</label>
+                <input type="text" class="form-control" th:field="*{hostContact}">
+                <div class="text-danger" th:if="${#fields.hasErrors('hostContact')}" th:errors="*{hostContact}"></div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Event Date and Time</label>
+                <input type="datetime-local" class="form-control" th:field="*{startTime}" min="0000-01-01" max="9999-12-31">
+                <div class="text-danger" th:if="${#fields.hasErrors('startTime')}" th:errors="*{startTime}"></div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Event Duration</label>
+                <div class="d-flex justify-content-start align-items-center">
+                    <input type="number" class="form-control me-2" th:field="*{durationHours}" min="1" max="12" placeholder="Hours">
+                    <span>hours and</span>
+                    <input type="number" class="form-control ms-2" th:field="*{durationMinutes}" min="0" max="59" placeholder="Minutes">
+                    <span>minutes</span>
+                    <div class="text-danger" th:if="${#fields.hasErrors('durationHours')}" th:errors="*{durationHours}"></div>
+                    <div class="text-danger" th:if="${#fields.hasErrors('durationMinutes')}" th:errors="*{durationMinutes}"></div>
+                </div>
+            </div>
+
+
+            <div class="mb-3">
+                <label class="form-label">Location</label>
+                <input type="text" class="form-control" th:field="*{location}">
+                <div class="text-danger" th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Capacity</label>
+                <input type="number" class="form-control" th:field="*{capacity}">
+                <div class="text-danger" th:if="${#fields.hasErrors('capacity')}" th:errors="*{capacity}"></div>
+            </div>
+
+            <div class="form-button-container">
+                <span>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    &nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-secondary" th:href="@{/community/hosting}">Cancel</a>
+                </span>
+            </div>
+
+        </form>
+
+    </div>
+
+</body>
+</html>

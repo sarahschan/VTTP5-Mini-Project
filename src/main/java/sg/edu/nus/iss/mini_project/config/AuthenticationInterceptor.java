@@ -12,35 +12,28 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         
-        // Get userID and userRole from session
+        String requestURI = request.getRequestURI();    
+    
         Object userID = request.getSession().getAttribute("userID");
-        String userRole = (String) request.getSession().getAttribute("userRole");
-
-        // Allow access to login and error pages without any authentication check
-        if (request.getRequestURI().equals("/") || request.getRequestURI().equals("/login") || request.getRequestURI().equals("/error")) {
-            return true;
-        }
-
-        // Check if userID exists in session
+        Object userRole = request.getSession().getAttribute("userRole");
+    
         if (userID == null) {
-            response.sendRedirect("/");  // Redirect to home if not logged in
-            return false;  // Stop further processing
+            response.sendRedirect("/");
+            return false;
         }
-
-        // Check if user is trying to access admin pages but is not an admin
-        if (request.getRequestURI().startsWith("/admin") && !"admin".equals(userRole)) {
-            response.sendRedirect("/access-denied");  // Redirect to access denied page
-            return false;  // Stop further processing
+    
+        if (requestURI.startsWith("/admin") && !userRole.toString().equals("admin")){
+            response.sendRedirect("/access-denied");
+            return false;
         }
-
-        // Check if user is trying to access community pages but is not a community member
-        if (request.getRequestURI().startsWith("/community") && !"community".equals(userRole)) {
-            response.sendRedirect("/access-denied");  // Redirect to access denied page
-            return false;  // Stop further processing
+    
+        if (requestURI.startsWith("/community") && !userRole.toString().equals("community")) {
+            response.sendRedirect("/access-denied");
+            return false;
         }
-
-        // Allow the request to continue if role is correct
+    
         return true;
+
     }
     
 }
