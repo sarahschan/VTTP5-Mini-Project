@@ -1,5 +1,6 @@
 package sg.edu.nus.iss.mini_project.controller.community;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,7 +16,10 @@ import sg.edu.nus.iss.mini_project.model.Event;
 @RequestMapping("/community/hosting")
 public class CommunityHostingController {
     
+    @Value("${google.maps.api.key}")
+    private String googleMapsApiKey;
 
+    
     @GetMapping()
     public String hostingPage(){
         return "community/hosting";
@@ -27,7 +31,7 @@ public class CommunityHostingController {
     public String hostNewEvent(Model model){
         Event event = new Event();
         model.addAttribute("event", event);
-
+        model.addAttribute("apiKey", googleMapsApiKey);
         return "community/newEvent";
     }
 

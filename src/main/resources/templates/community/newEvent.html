@@ -51,22 +51,23 @@
 
             <div class="mb-3">
                 <label class="form-label">Event Date and Time</label>
-                <input type="datetime-local" class="form-control" th:field="*{startTime}" min="0000-01-01" max="9999-12-31">
+                <input type="datetime-local" class="form-control" th:field="*{startTime}" min="0000-01-01T00:00" max="9999-12-31T23:59">
                 <div class="text-danger" th:if="${#fields.hasErrors('startTime')}" th:errors="*{startTime}"></div>
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Event Duration</label>
-                <div class="d-flex justify-content-start align-items-center">
-                    <input type="number" class="form-control me-2" th:field="*{durationHours}" min="1" max="12" placeholder="Hours">
-                    <span>hours and</span>
-                    <input type="number" class="form-control ms-2" th:field="*{durationMinutes}" min="0" max="59" placeholder="Minutes">
-                    <span>minutes</span>
-                    <div class="text-danger" th:if="${#fields.hasErrors('durationHours')}" th:errors="*{durationHours}"></div>
-                    <div class="text-danger" th:if="${#fields.hasErrors('durationMinutes')}" th:errors="*{durationMinutes}"></div>
+                <div class="row">
+                    <div class="col-12 col-sm-6 mb-2">
+                        <input type="number" step="any" class="form-control" th:field="*{durationHours}" placeholder="Hours">
+                        <div class="text-danger" th:if="${#fields.hasErrors('durationHours')}" th:errors="*{durationHours}"></div>
+                    </div>
+                    <div class="col-12 col-sm-6 mb-2">
+                        <input type="number" step="any" class="form-control" th:field="*{durationMinutes}" placeholder="Minutes">
+                        <div class="text-danger" th:if="${#fields.hasErrors('durationMinutes')}" th:errors="*{durationMinutes}"></div>
+                    </div>
                 </div>
             </div>
-
 
             <div class="mb-3">
                 <label class="form-label">Location</label>
@@ -76,7 +77,7 @@
 
             <div class="mb-3">
                 <label class="form-label">Capacity</label>
-                <input type="number" class="form-control" th:field="*{capacity}">
+                <input type="number" step="any" class="form-control" th:field="*{capacity}">
                 <div class="text-danger" th:if="${#fields.hasErrors('capacity')}" th:errors="*{capacity}"></div>
             </div>
 

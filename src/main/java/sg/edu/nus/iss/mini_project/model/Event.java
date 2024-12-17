@@ -24,7 +24,7 @@ public class Event {
     private String eventName;
 
         @NotBlank(message = "Please write a short description of your event")
-        @Size(max = 250, message = "Description cannot be longer than 250 characters")
+        @Size(max = 250, message = "Description cannot be Doubleer than 250 characters")
     private String description;
 
 
@@ -43,13 +43,13 @@ public class Event {
         @Min(value = 1, message = "Event duration must be at least 1 hour")
         @Max(value = 12, message = "Event duration cannot exceed 12 hours")
         @Digits(integer = 2, fraction = 0, message = "Hours must be a whole number")
-    private Integer durationHours;
+    private Double durationHours;
 
         @NotNull(message = "Please set the minutes duration for your event")
         @Min(value = 0, message = "Duration minutes cannot be negative")
         @Max(value = 59, message = "Duration minutes cannot exceed 59")
         @Digits(integer = 2, fraction = 0, message = "Minutes must be a whole number")
-    private Integer durationMinutes;
+    private Double durationMinutes;
 
     private LocalDateTime endTime;
 
@@ -60,7 +60,7 @@ public class Event {
         @Min(value = 3, message = "Minimum capacity for an event is 3 participants")
         @Max(value = 999, message = "Maximum capacity for an event is 999 participants")
         @Digits(integer = 3, fraction = 0, message = "Capacity must be a whole number")
-    private Integer capacity;
+    private Double capacity;
 
     private List<String> attendees;
     
@@ -69,7 +69,7 @@ public class Event {
     }
 
 
-    public Event(String eventName, String description, String hostName, String hostContact, LocalDateTime startTime, Integer durationHours, Integer durationMinutes, String location, Integer capacity) {
+    public Event(String eventName, String description, String hostName, String hostContact, LocalDateTime startTime, Double durationHours, Double durationMinutes, String location, Double capacity) {
         this.eventID = UUID.randomUUID().toString();
         this.eventName = eventName;
         this.description = description;
@@ -85,8 +85,10 @@ public class Event {
     }
 
 
-    private LocalDateTime calculateEndTime(LocalDateTime startTime, Integer durationHours, Integer durationMinutes) {
-        Duration duration = Duration.ofHours(durationHours).plusMinutes(durationMinutes);
+    private LocalDateTime calculateEndTime(LocalDateTime startTime, Double durationHours, Double durationMinutes) {
+        long hours = durationHours.longValue();
+        long minutes = durationMinutes.longValue();
+        Duration duration = Duration.ofHours(hours).plusMinutes(minutes);
         return startTime.plus(duration);
     }
 
@@ -147,22 +149,22 @@ public class Event {
     }
 
 
-    public Integer getDurationHours() {
+    public Double getDurationHours() {
         return durationHours;
     }
 
 
-    public void setDurationHours(Integer durationHours) {
+    public void setDurationHours(Double durationHours) {
         this.durationHours = durationHours;
     }
 
 
-    public Integer getDurationMinutes() {
+    public Double getDurationMinutes() {
         return durationMinutes;
     }
 
 
-    public void setDurationMinutes(Integer durationMinutes) {
+    public void setDurationMinutes(Double durationMinutes) {
         this.durationMinutes = durationMinutes;
     }
 
@@ -187,12 +189,12 @@ public class Event {
     }
 
 
-    public Integer getCapacity() {
+    public Double getCapacity() {
         return capacity;
     }
 
 
-    public void setCapacity(Integer capacity) {
+    public void setCapacity(Double capacity) {
         this.capacity = capacity;
     }
 
