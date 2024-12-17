@@ -36,4 +36,14 @@ public class MemberService {
         
     }
 
+
+    public String getFullName(String email){
+
+        Member member = getMember(email);
+
+        String fullName = member.getFirstName() + " " + member.getLastName();
+
+        return fullName;
+    }
+
 }

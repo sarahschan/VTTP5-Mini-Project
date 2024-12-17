@@ -20,15 +20,17 @@ public class Event {
     
     private String eventID;
     
-        @NotBlank(message = "Please enter an event name")
+        @Size(min = 5, max = 250, message = "Event name must be between 5 and 100 characters")
     private String eventName;
 
         @NotBlank(message = "Please write a short description of your event")
-        @Size(max = 250, message = "Description cannot be Doubleer than 250 characters")
+        @Size(max = 250, message = "Description cannot be more than than 250 characters")
     private String description;
 
 
     private String hostName;
+
+    private String hostEmail;
 
         @NotBlank(message = "Please provide your phone number or Telegram handle")
         @Pattern(regexp = "^(9\\d{7}|8\\d{7}|@.*)$", message = "Please provide a valid phone number (9xxxxxxx or 8xxxxxxx) or a Telegram handle (starting with '@')")
@@ -53,8 +55,12 @@ public class Event {
 
     private LocalDateTime endTime;
 
-        @NotBlank(message = "Please provide a valid location for your event")
-    private String location;
+        @Pattern(regexp = "^\\d{6}$", message = "Please provide a valid Singapore postal code for your event")
+    private String postalCode;
+
+    private Double latitude;
+
+    private Double longitude;
 
         @NotNull(message = "Please set a capacity for your event")
         @Min(value = 3, message = "Minimum capacity for an event is 3 participants")
@@ -69,19 +75,44 @@ public class Event {
     }
 
 
-    public Event(String eventName, String description, String hostName, String hostContact, LocalDateTime startTime, Double durationHours, Double durationMinutes, String location, Double capacity) {
+    public Event(String eventName, String description, String hostName, String hostEmail, String hostContact, LocalDateTime startTime, Double durationHours, Double durationMinutes, String postalCode, Double latitude, Double longitude, Double capacity) {
         this.eventID = UUID.randomUUID().toString();
         this.eventName = eventName;
         this.description = description;
         this.hostName = hostName;
+        this.hostEmail = hostEmail;
         this.hostContact = hostContact;
         this.startTime = startTime;
         this.durationHours = durationHours;
         this.durationMinutes = durationMinutes;
         this.endTime = calculateEndTime(startTime, durationHours, durationMinutes);
-        this.location = location;
+        this.postalCode = postalCode;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.capacity = capacity;
         this.attendees = null;
+    }
+
+
+    
+
+
+    public Event(String eventID, String eventName, String description, String hostName, String hostEmail, String hostContact, LocalDateTime startTime, Double durationHours, Double durationMinutes, LocalDateTime endTime, String postalCode, Double latitude, Double longitude, Double capacity, List<String> attendees) {
+        this.eventID = eventID;
+        this.eventName = eventName;
+        this.description = description;
+        this.hostName = hostName;
+        this.hostEmail = hostEmail;
+        this.hostContact = hostContact;
+        this.startTime = startTime;
+        this.durationHours = durationHours;
+        this.durationMinutes = durationMinutes;
+        this.endTime = endTime;
+        this.postalCode = postalCode;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.capacity = capacity;
+        this.attendees = attendees;
     }
 
 
@@ -95,7 +126,7 @@ public class Event {
 
     @Override
     public String toString() {
-        return eventID + "," + eventName + "," + description + "," + hostName + "," + hostContact + "," + startTime + "," + durationHours + "," + durationMinutes + "," + endTime + "," + location + "," + capacity + "," + attendees;
+        return eventID + "," + eventName + "," + description + "," + hostName + "," + hostEmail + "," + hostContact + "," + startTime + "," + durationHours + "," + durationMinutes + "," + endTime + "," + postalCode + "," + latitude + "," + longitude + "," + capacity + "," + attendees;
     }
 
 
@@ -179,16 +210,6 @@ public class Event {
     }
 
 
-    public String getLocation() {
-        return location;
-    }
-
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-
     public Double getCapacity() {
         return capacity;
     }
@@ -218,5 +239,44 @@ public class Event {
         this.hostContact = hostContact;
     }
 
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+
+    public String getHostEmail() {
+        return hostEmail;
+    }
+
+
+    public void setHostEmail(String hostEmail) {
+        this.hostEmail = hostEmail;
+    }
     
 }

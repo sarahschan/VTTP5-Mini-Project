@@ -72,6 +72,7 @@
 //                 } catch (Exception e) {
 
 //                     System.out.println("Unable to process line " + lineCount);
+//                     e.printStackTrace();
 //                     lineCount++;
 
 //                 }

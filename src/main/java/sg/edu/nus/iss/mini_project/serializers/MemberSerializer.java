@@ -19,11 +19,20 @@ public class MemberSerializer {
     
     public String pojoToJson(Member member){
 
-        // Create empty JsonArray for hostingEvents and attendingEvents
+        List<String> hostingEvents = (member.getHostingEvents() != null) ? member.getHostingEvents() : new ArrayList<>();
+        List<String> attendingEvents = (member.getAttendingEvents() != null) ? member.getAttendingEvents() : new ArrayList<>();
+
         JsonArrayBuilder hostingEventsArrayBuilder = Json.createArrayBuilder();
         JsonArrayBuilder attendingEventsArrayBuilder = Json.createArrayBuilder();
+
+        for (String eventId : hostingEvents) {
+            hostingEventsArrayBuilder.add(Json.createValue(eventId.replace("\"", "")));
+        }
+    
+        for (String eventId : attendingEvents) {
+            attendingEventsArrayBuilder.add(Json.createValue(eventId.replace("\"", "")));
+        }
         
-        // Build the JSON object for the Member POJO
         JsonObjectBuilder memberJsonObjectBuilder = Json.createObjectBuilder()
             .add("firstName", member.getFirstName())
             .add("lastName", member.getLastName())
@@ -32,7 +41,6 @@ public class MemberSerializer {
             .add("hostingEvents", hostingEventsArrayBuilder)
             .add("attendingEvents", attendingEventsArrayBuilder);
 
-        // Build the final JSON object and convert it to a string
         JsonObject memberJsonObject = memberJsonObjectBuilder.build();
 
         return memberJsonObject.toString();

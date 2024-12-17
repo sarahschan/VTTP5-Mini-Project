@@ -33,19 +33,19 @@
         <form method="POST" th:action="@{/community/hosting/new}" th:object="${event}">
             <div class="mb-3">
                 <label class="form-label">Event Name</label>
-                <input type="text" class="form-control" th:field="*{eventName}">
+                <input type="text" class="form-control" th:field="*{eventName}" placeholder="Event name">
                 <div class="text-danger" th:if="${#fields.hasErrors('eventName')}" th:errors="*{eventName}"></div>
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Event Description</label>
-                <textarea class="form-control" th:field="*{description}" rows="2"></textarea>
+                <textarea class="form-control" th:field="*{description}" rows="2" placeholder="Write a short description and any additional notes"></textarea>
                 <div class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Your Contact</label>
-                <input type="text" class="form-control" th:field="*{hostContact}">
+                <input type="text" class="form-control" th:field="*{hostContact}" placeholder="9xxxxxx or 8xxxxxx or @TelegramHandle">
                 <div class="text-danger" th:if="${#fields.hasErrors('hostContact')}" th:errors="*{hostContact}"></div>
             </div>
 
@@ -70,14 +70,17 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Location</label>
-                <input type="text" class="form-control" th:field="*{location}">
-                <div class="text-danger" th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></div>
+                <label class="form-label">Location (Postal Code)</label>
+                <input id="location" type="text" class="form-control" th:field="*{postalCode}" placeholder="012345">
+                <div class="text-danger" th:if="${#fields.hasErrors('postalCode')}" th:errors="*{postalCode}"></div>
+                <div class="text-danger" th:if="${#fields.hasErrors('global')}">
+                    <span th:each="err : ${#fields.errors('global')}" th:text="${err}"></span>
+                </div>  
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Capacity</label>
-                <input type="number" step="any" class="form-control" th:field="*{capacity}">
+                <input type="number" step="any" class="form-control" th:field="*{capacity}" placeholder="Capacity">
                 <div class="text-danger" th:if="${#fields.hasErrors('capacity')}" th:errors="*{capacity}"></div>
             </div>
 
@@ -92,6 +95,7 @@
         </form>
 
     </div>
+
 
 </body>
 </html>

@@ -45,7 +45,7 @@ public class CommunityAccountController {
 
 
 
-    @PostMapping("/changepassword")
+    @PostMapping(path = "/changepassword", consumes = "application/x-www-form-urlencoded")
     public String handleChangePassword(@RequestParam("currentPassword") String currentPassword, @RequestParam("newPassword") String newPassword, @RequestParam("repeatPassword") String repeatPassword, Model model){
 
         if (!loginService.checkPassword(currentPassword)){
