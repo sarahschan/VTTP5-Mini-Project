@@ -2,6 +2,7 @@ package sg.edu.nus.iss.mini_project.model;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 
@@ -69,6 +70,10 @@ public class Event {
     private Double capacity;
 
     private List<String> attendees;
+
+    private String formattedStartTime;
+    
+    private String formattedEndTime;
     
     
     public Event() {
@@ -91,13 +96,15 @@ public class Event {
         this.longitude = longitude;
         this.capacity = capacity;
         this.attendees = null;
+        this.formattedStartTime = formatTime(startTime);
+        this.formattedEndTime = formatTime(endTime);
     }
 
 
     
 
 
-    public Event(String eventID, String eventName, String description, String hostName, String hostEmail, String hostContact, LocalDateTime startTime, Double durationHours, Double durationMinutes, LocalDateTime endTime, String postalCode, Double latitude, Double longitude, Double capacity, List<String> attendees) {
+    public Event(String eventID, String eventName, String description, String hostName, String hostEmail, String hostContact, LocalDateTime startTime, Double durationHours, Double durationMinutes, LocalDateTime endTime, String postalCode, Double latitude, Double longitude, Double capacity, List<String> attendees, String formattedStartTime, String formattedEndTime) {
         this.eventID = eventID;
         this.eventName = eventName;
         this.description = description;
@@ -113,6 +120,8 @@ public class Event {
         this.longitude = longitude;
         this.capacity = capacity;
         this.attendees = attendees;
+        this.formattedStartTime = formattedStartTime;
+        this.formattedEndTime = formattedEndTime;
     }
 
 
@@ -123,10 +132,17 @@ public class Event {
         return startTime.plus(duration);
     }
 
+    private String formatTime(LocalDateTime localDateTime){
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy (hh:mm a)");
+
+        return localDateTime.format(formatter);
+    }
+
 
     @Override
     public String toString() {
-        return eventID + "," + eventName + "," + description + "," + hostName + "," + hostEmail + "," + hostContact + "," + startTime + "," + durationHours + "," + durationMinutes + "," + endTime + "," + postalCode + "," + latitude + "," + longitude + "," + capacity + "," + attendees;
+        return eventID + "," + eventName + "," + description + "," + hostName + "," + hostEmail + "," + hostContact + "," + startTime + "," + durationHours + "," + durationMinutes + "," + endTime + "," + postalCode + "," + latitude + "," + longitude + "," + capacity + "," + attendees+ "," + formattedStartTime + "," + formattedEndTime;
     }
 
 
@@ -278,5 +294,26 @@ public class Event {
     public void setHostEmail(String hostEmail) {
         this.hostEmail = hostEmail;
     }
+
+
+    public String getFormattedStartTime() {
+        return formattedStartTime;
+    }
+
+
+    public void setFormattedStartTime(String formattedStartTime) {
+        this.formattedStartTime = formattedStartTime;
+    }
+
+
+    public String getFormattedEndTime() {
+        return formattedEndTime;
+    }
+
+
+    public void setFormattedEndTime(String formattedEndTime) {
+        this.formattedEndTime = formattedEndTime;
+    }
+    
     
 }
