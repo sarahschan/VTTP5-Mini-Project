@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jakarta.validation.Valid;
 import sg.edu.nus.iss.mini_project.model.Member;
 import sg.edu.nus.iss.mini_project.service.AdminService;
+import sg.edu.nus.iss.mini_project.service.GeneralService;
 
 @Controller
 @RequestMapping("/admin/members")
@@ -22,6 +23,9 @@ public class AdminMembersController {
     
     @Autowired
     AdminService adminService;
+
+    @Autowired
+    GeneralService generalService;
 
     @GetMapping()
     public String membersPage(Model model){
@@ -62,7 +66,7 @@ public class AdminMembersController {
     @GetMapping("/delete/{member-email}")
     public String confirmDelete(@PathVariable("member-email") String email, Model model){
         
-        Member memberToDelete = adminService.getMember(email);
+        Member memberToDelete = generalService.getMember(email);
         model.addAttribute("member", memberToDelete);
 
         return "admin/confirmDelete";

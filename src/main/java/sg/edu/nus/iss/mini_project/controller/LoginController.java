@@ -1,6 +1,7 @@
 package sg.edu.nus.iss.mini_project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,6 +21,9 @@ public class LoginController {
     
     @Autowired
     LoginService loginService;
+
+    @Value("${admin.email}")
+    private String adminEmail;
     
 
     // Serve login page
@@ -59,7 +63,7 @@ public class LoginController {
             
             session.setAttribute("userID", login.getEmail());
 
-            if (session.getAttribute("userID").equals("admin@email.com")){
+            if (session.getAttribute("userID").equals(adminEmail)){
                 return "redirect:/admin/home";
             } else {
                 return "redirect:/home";

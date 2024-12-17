@@ -26,26 +26,30 @@
 
     <div class="content-container">
         <div class="content-header d-flex justify-content-between align-items-center">
-            <h1>Members</h1>
-            <a th:href="@{/admin/members/add}" class="btn btn-secondary fs-6">Add New Member</a>
+            <h1>Account Details</h1>
         </div>
 
         <table class="table table-striped">
-            <thead>
+            <tr>
                 <th>First Name</th>
+                <td th:text="${member.firstName}"></td>
+                <td></td>
+            </tr>
+            <tr>
                 <th>Last Name</th>
-                <th>Email</th>
+                <td th:text="${member.lastName}"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>Email address</th>
+                <td th:text="${member.email}"></td>
+                <td></td>
+            </tr>
+            <tr>
                 <th>Password</th>
-            </thead>
-            <tbody>
-                <tr th:each="member : ${members}">
-                    <td th:text="${member.firstName}"></td>
-                    <td th:text="${member.lastName}"></td>
-                    <td th:text="${member.email}"></td>
-                    <td th:text="${member.password}"></td>
-                    <td><a th:href="@{/admin/members/delete/{email}(email=${member.email})}" class="btn btn-danger btn-sm">Delete</a></td>
-                </tr>
-            </tbody>
+                <td th:text="${#strings.repeat('*', #strings.length(member.password))}"></td>
+                <td><a th:href="@{/admin/account/changepassword}" class="btn btn-danger btn-sm">Change Password</a></td>
+            </tr>
         </table>
     </div>
 

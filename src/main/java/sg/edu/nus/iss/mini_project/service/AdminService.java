@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import sg.edu.nus.iss.mini_project.constant.Constant;
@@ -24,6 +25,9 @@ public class AdminService {
     @Autowired
     NameService nameService;
 
+    @Value("${admin.email}")
+    private String adminEmail;
+
 
     public List<Member> getMembers(){
 
@@ -35,7 +39,7 @@ public class AdminService {
         for (Object memberObject : memberMap){
             Member m = memberSerializer.jsonToPojo(memberObject.toString());
                 // don't include admin in the list of members
-                if (m.getEmail().equals("admin@email.com")){
+                if (m.getEmail().equals(adminEmail)){
                     continue;
                 }
             members.add(m);
@@ -57,16 +61,6 @@ public class AdminService {
 
         redisRepo.saveValue(Constant.MEMBER_KEY, email, newMemberJson.toString());
 
-    }
-
-
-    public Member getMember(String email){
-
-        String foundMemberJson = redisRepo.getValue(Constant.MEMBER_KEY, email).toString();
-
-        Member foundMember = memberSerializer.jsonToPojo(foundMemberJson);
-
-        return foundMember;
     }
 
 
