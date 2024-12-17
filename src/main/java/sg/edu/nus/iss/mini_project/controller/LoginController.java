@@ -64,12 +64,17 @@ public class LoginController {
             session.setAttribute("userID", login.getEmail());
 
             if (session.getAttribute("userID").equals(adminEmail)){
+                session.setAttribute("userRole", "admin");
                 return "redirect:/admin/home";
+
+
             } else {
+
+                session.setAttribute("userRole", "community");
                 return "redirect:/home";
             }
+            
         }
-
         
     }
 

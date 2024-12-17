@@ -1,0 +1,69 @@
+/* Reset margin and padding for the body and html to ensure full height */
+html, body {
+    height: 100%;             /* Ensure the full height of the screen */
+    margin: 0;
+    display: flex;
+    justify-content: center;  /* Center the content horizontally */
+    align-items: center;      /* Center the content vertically */
+    flex-direction: column;   /* Stack content vertically */
+    background-image: url('/images/login.png'); /* Set the background image */
+    background-size: cover;   /* Ensure the image covers the entire screen */
+    background-position: center center; /* Center the image */
+    background-attachment: fixed; /* Make sure the background stays fixed */
+    background-repeat: no-repeat; /* Prevent image repetition */
+}
+
+
+/* Ensure content-container takes full height */
+.content-container {
+    display: flex;
+    flex-direction: column;   /* Stack the content-header and content-body vertically */
+    justify-content: center;  /* Center content vertically */
+    align-items: center;      /* Center content horizontally */
+    height: 100%;             /* Full height of the screen */
+}
+
+/* Content header setup: the header is centered around the '||' symbol */
+.content-header {
+    display: flex;               /* Use flexbox to align the texts */
+    justify-content: center;     /* Horizontally center content */
+    align-items: center;         /* Vertically center content */
+    gap: 10px;                   /* Optional: space between the elements */
+}
+
+
+.header-text {
+    margin: 0;                   /* Remove default margin */
+    font-size: 30px;             /* Set font size */
+    font-weight: bold;           /* Set font weight */
+}
+
+/* Content body: Center the form horizontally */
+.content-body {
+    display: flex;
+    justify-content: center;     /* Center the form horizontally */
+    align-items: center;         /* Center the form vertically */
+    width: 100%;                 /* Full width */
+    margin-top: 20px;            /* Space between header and form */
+}
+
+/* Form styling */
+form {
+    width: 400px;                 /* Ensure form takes full width */
+    max-width: 400px;            /* Limit form width */
+    padding: 20px;               /* Add padding inside the form */
+    border-radius: 8px;          /* Round corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    background-color: #fff;      /* White background */
+}
+
+.mb-3 {
+    margin-bottom: 1rem;
+}
+
+
+.form-button-container {
+    display: flex;
+    flex-direction: column;  /* Stack buttons vertically */
+    gap: 10px;               /* Optional: Add some space between the buttons */
+}

@@ -33,19 +33,19 @@
             <div class="mb-3">
                 <label class="form-label">First Name</label>
                 <input type="text" class="form-control" th:field="*{firstName}" name="firstName">
-                <div class="alert alert-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+                <div class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
             </div>
             
             <div class="mb-3">
                 <label class="form-label">Last Name</label>
                 <input type="text" class="form-control" th:field="*{lastName}" name="lastName">
-                <div class="alert alert-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+                <div class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Email</label>
                 <input type="text" class="form-control" th:field="*{email}" name="email">
-                <div class="alert alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
             </div>
 
             <div class="form-button-container">

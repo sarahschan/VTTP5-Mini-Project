@@ -21,7 +21,6 @@ public class AdminController {
     @GetMapping("/logout")
     public String logout(HttpSession session){
         session.removeAttribute("userID");
-        System.out.println(session.getAttribute("userID"));
         session.invalidate();
         return "redirect:/";
     }

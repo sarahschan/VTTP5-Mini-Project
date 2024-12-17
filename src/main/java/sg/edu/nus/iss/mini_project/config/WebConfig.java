@@ -16,7 +16,7 @@ public class WebConfig implements WebMvcConfigurer{
         // Add the interceptor to the specified paths
         registry.addInterceptor(authenticationInterceptor)
                 .addPathPatterns("/admin/**", "/community/**")  // Apply to these paths
-                .excludePathPatterns("/", "/login");  // Exclude login paths
+                .excludePathPatterns("/", "/login", "/error", "/access-denied");  // Exclude login, error, and access-denied pages
     }
 
 }

@@ -8,19 +8,17 @@
 
 </head>
 
-<header>
-    <img src="/images/bft_logo.png" alt="Gym Logo" width="120" height="100">
-    <p>OUR COMMUNITY</p>
-    <p>Link to My Events</p>
-    <p>Link to account settings</p>
-    <p>Link to logout</p>
-</header>
-
 <body>
     
-    <div>
-        <h1>Community Home</h1>
-    </div>
-
+    <header>
+        <img src="/images/bft_logo.png" alt="Gym Logo" width="120" height="100">
+        
+        <div class="nav-links">
+            <a href="/admin/home" class="btn fs-6 fw-bold">EVENTS</a>
+            <a th:href="@{/admin/members}" class="btn fs-6 fw-bold">MEMBERS</a>
+            <a th:href="@{/admin/account}" class="btn fs-6 fw-bold">ACCOUNT DETAILS</a>
+            <a th:href="@{/admin/logout}" class="btn fs-6 fw-bold">LOGOUT</a>
+        </div>
+    </header>
 </body>
 </html>

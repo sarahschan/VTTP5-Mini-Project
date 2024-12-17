@@ -11,16 +11,36 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        // Check if 'userID' exists in session
+        
+        // Get userID and userRole from session
         Object userID = request.getSession().getAttribute("userID");
+        String userRole = (String) request.getSession().getAttribute("userRole");
 
-        // If 'userID' is not present, redirect to home page
-        if (userID == null) {
-            response.sendRedirect("/");
-            return false;  // Stop further processing of the request
+        // Allow access to login and error pages without any authentication check
+        if (request.getRequestURI().equals("/") || request.getRequestURI().equals("/login") || request.getRequestURI().equals("/error")) {
+            return true;
         }
 
-        // Allow the request to continue
+        // Check if userID exists in session
+        if (userID == null) {
+            response.sendRedirect("/");  // Redirect to home if not logged in
+            return false;  // Stop further processing
+        }
+
+        // Check if user is trying to access admin pages but is not an admin
+        if (request.getRequestURI().startsWith("/admin") && !"admin".equals(userRole)) {
+            response.sendRedirect("/access-denied");  // Redirect to access denied page
+            return false;  // Stop further processing
+        }
+
+        // Check if user is trying to access community pages but is not a community member
+        if (request.getRequestURI().startsWith("/community") && !"community".equals(userRole)) {
+            response.sendRedirect("/access-denied");  // Redirect to access denied page
+            return false;  // Stop further processing
+        }
+
+        // Allow the request to continue if role is correct
         return true;
     }
+    
 }
