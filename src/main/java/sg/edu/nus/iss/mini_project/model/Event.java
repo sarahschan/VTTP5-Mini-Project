@@ -69,6 +69,8 @@ public class Event {
         @Digits(integer = 3, fraction = 0, message = "Capacity must be a whole number")
     private Double capacity;
 
+    private Integer registered;
+
     private List<String> attendees;
 
     private String formattedStartTime;
@@ -95,6 +97,7 @@ public class Event {
         this.latitude = latitude;
         this.longitude = longitude;
         this.capacity = capacity;
+        this.registered = 0;
         this.attendees = null;
         this.formattedStartTime = formatTime(startTime);
         this.formattedEndTime = formatTime(endTime);
@@ -104,7 +107,7 @@ public class Event {
     
 
 
-    public Event(String eventID, String eventName, String description, String hostName, String hostEmail, String hostContact, LocalDateTime startTime, Double durationHours, Double durationMinutes, LocalDateTime endTime, String postalCode, Double latitude, Double longitude, Double capacity, List<String> attendees, String formattedStartTime, String formattedEndTime) {
+    public Event(String eventID, String eventName, String description, String hostName, String hostEmail, String hostContact, LocalDateTime startTime, Double durationHours, Double durationMinutes, LocalDateTime endTime, String postalCode, Double latitude, Double longitude, Double capacity, Integer registered, List<String> attendees, String formattedStartTime, String formattedEndTime) {
         this.eventID = eventID;
         this.eventName = eventName;
         this.description = description;
@@ -119,6 +122,7 @@ public class Event {
         this.latitude = latitude;
         this.longitude = longitude;
         this.capacity = capacity;
+        this.registered = registered;
         this.attendees = attendees;
         this.formattedStartTime = formattedStartTime;
         this.formattedEndTime = formattedEndTime;
@@ -142,7 +146,7 @@ public class Event {
 
     @Override
     public String toString() {
-        return eventID + "," + eventName + "," + description + "," + hostName + "," + hostEmail + "," + hostContact + "," + startTime + "," + durationHours + "," + durationMinutes + "," + endTime + "," + postalCode + "," + latitude + "," + longitude + "," + capacity + "," + attendees+ "," + formattedStartTime + "," + formattedEndTime;
+        return eventID + "," + eventName + "," + description + "," + hostName + "," + hostEmail + "," + hostContact + "," + startTime + "," + durationHours + "," + durationMinutes + "," + endTime + "," + postalCode + "," + latitude + "," + longitude + "," + capacity + "," + registered + "," + attendees+ "," + formattedStartTime + "," + formattedEndTime;
     }
 
 
@@ -313,6 +317,16 @@ public class Event {
 
     public void setFormattedEndTime(String formattedEndTime) {
         this.formattedEndTime = formattedEndTime;
+    }
+
+
+    public Integer getRegistered() {
+        return registered;
+    }
+
+
+    public void setRegistered(Integer registered) {
+        this.registered = registered;
     }
     
     

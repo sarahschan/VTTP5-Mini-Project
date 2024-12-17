@@ -41,6 +41,7 @@ public class CommunityHostingController {
     public String hostingPage(HttpSession session, Model model){
 
         List<Event> events = eventService.getHostingEvents(session.getAttribute("userID").toString());
+        model.addAttribute("googleApiKey", googleApiKey);
         model.addAttribute("events", events);
         return "community/hosting";
     }
