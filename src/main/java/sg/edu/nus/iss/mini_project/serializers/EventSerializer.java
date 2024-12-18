@@ -39,6 +39,7 @@ public class EventSerializer {
             .add("durationHours", event.getDurationHours())
             .add("durationMinutes", event.getDurationMinutes())
             .add("endTime", event.getEndTime().toString())
+            .add("location", event.getLocation())
             .add("postalCode", event.getPostalCode())
             .add("latitude", event.getLatitude())
             .add("longitude", event.getLongitude())
@@ -68,6 +69,7 @@ public class EventSerializer {
         Double durationHours = jsonObject.getJsonNumber("durationHours").doubleValue();
         Double durationMinutes = jsonObject.getJsonNumber("durationMinutes").doubleValue();
         LocalDateTime endTime = LocalDateTime.parse(jsonObject.getString("endTime"));
+        String location = jsonObject.getString("location");
         String postalCode = jsonObject.getString("postalCode");
         Double latitude = jsonObject.getJsonNumber("latitude").doubleValue();
         Double longitude = jsonObject.getJsonNumber("longitude").doubleValue();
@@ -82,6 +84,6 @@ public class EventSerializer {
             attendees.add(attendee.toString().replace("\"", ""));
         }
 
-        return new Event(eventID, eventName, description, hostName, hostEmail, hostContact, startTime, durationHours, durationMinutes, endTime, postalCode, latitude, longitude, capacity, registered, attendees);
+        return new Event(eventID, eventName, description, hostName, hostEmail, hostContact, startTime, durationHours, durationMinutes, endTime, location, postalCode, latitude, longitude, capacity, registered, attendees);
     }
 }

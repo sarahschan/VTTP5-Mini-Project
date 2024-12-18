@@ -57,7 +57,7 @@ public class CommunityHostingController {
 
 
     @PostMapping("/new")
-    public String handleNewEvent(@Valid @ModelAttribute("event") Event event, BindingResult result, Model model, HttpSession session){
+    public String handleNewEvent(@Valid @ModelAttribute Event event, BindingResult result, Model model, HttpSession session){
         
         if (result.hasErrors() || !locationService.isPostalCodeValid(event.getPostalCode())){
 
@@ -75,7 +75,7 @@ public class CommunityHostingController {
         Double lat = latLng[0];
         Double lng = latLng[1];
 
-        Event newEvent = new Event(event.getEventName(), event.getDescription(), host, hostEmail, event.getHostContact(), event.getStartTime(), event.getDurationHours(), event.getDurationMinutes(), event.getPostalCode(), lat, lng, event.getCapacity());
+        Event newEvent = new Event(event.getEventName(), event.getDescription(), host, hostEmail, event.getHostContact(), event.getStartTime(), event.getDurationHours(), event.getDurationMinutes(), event.getLocation(), event.getPostalCode(), lat, lng, event.getCapacity());
 
         eventService.saveNewEvent(newEvent, hostEmail);
 
@@ -85,7 +85,7 @@ public class CommunityHostingController {
 
 
     @GetMapping("/confirm/{eventID}")
-    public String confirmEvent(@PathVariable("eventID") String eventID, Model model){
+    public String confirmEvent(@PathVariable String eventID, Model model){
         Event event = eventService.getEventPojo(eventID);
         model.addAttribute("event", event);
         return "community/eventNewConfirm";
@@ -94,7 +94,7 @@ public class CommunityHostingController {
 
 
     @GetMapping("/edit/{eventID}")
-    public String editEvent(@PathVariable("eventID") String eventID, Model model){
+    public String editEvent(@PathVariable String eventID, Model model){
         Event event = eventService.getEventPojo(eventID);
         model.addAttribute("event", event);
         return "community/eventEdit";
@@ -102,7 +102,7 @@ public class CommunityHostingController {
 
 
     @PostMapping("/edit/{eventID}")
-    public String handleEditEvent(@Valid @ModelAttribute("event") Event event, BindingResult result, Model model, HttpSession session){
+    public String handleEditEvent(@Valid @ModelAttribute Event event, BindingResult result, Model model, HttpSession session){
 
         if (result.hasErrors() || !locationService.isPostalCodeValid(event.getPostalCode()) || !eventService.isCapacityValid(event.getCapacity(), event.getRegistered())){
 
@@ -121,7 +121,7 @@ public class CommunityHostingController {
         Double[] latLng = locationService.getLatAndLng(event.getPostalCode());
         Double lat = latLng[0];
         Double lng = latLng[1];
-        Event editedEvent = new Event(event.getEventID(), event.getEventName(), event.getDescription(), event.getHostName(), event.getHostEmail(), event.getHostContact(), event.getStartTime(), event.getDurationHours(), event.getDurationMinutes(), event.getPostalCode(), lat, lng, event.getCapacity(), event.getRegistered(), event.getAttendees());
+        Event editedEvent = new Event(event.getEventID(), event.getEventName(), event.getDescription(), event.getHostName(), event.getHostEmail(), event.getHostContact(), event.getStartTime(), event.getDurationHours(), event.getDurationMinutes(), event.getLocation(), event.getPostalCode(), lat, lng, event.getCapacity(), event.getRegistered(), event.getAttendees());
         eventService.saveEditedEvent(editedEvent);
 
         return "redirect:/community/hosting/edit/saved/" + editedEvent.getEventID();
@@ -129,7 +129,7 @@ public class CommunityHostingController {
 
 
     @GetMapping("/edit/saved/{eventID}")
-    public String savedEdit(@PathVariable("eventID") String eventID, Model model){
+    public String savedEdit(@PathVariable String eventID, Model model){
         Event event = eventService.getEventPojo(eventID);
         model.addAttribute("event", event);
         return "community/eventEditSaved";
@@ -138,7 +138,7 @@ public class CommunityHostingController {
 
 
     @GetMapping("/delete/{eventID}")
-    public String deleteEvent(@PathVariable("eventID") String eventID, Model model){
+    public String deleteEvent(@PathVariable String eventID, Model model){
 
         Event event = eventService.getEventPojo(eventID);
         model.addAttribute("event", event);
@@ -148,7 +148,7 @@ public class CommunityHostingController {
 
 
     @GetMapping("/delete/confirm/{eventID}")
-    public String deleteEventConfirm(@PathVariable("eventID") String eventID, Model model, HttpSession session){
+    public String deleteEventConfirm(@PathVariable String eventID, Model model, HttpSession session){
 
         try{
 
@@ -164,7 +164,7 @@ public class CommunityHostingController {
 
 
     @GetMapping("/deleted/{eventID}")
-    public String deleted(@PathVariable("eventID") String eventID, Model model, HttpSession session){
+    public String deleted(@PathVariable String eventID, Model model, HttpSession session){
 
         String eventName = session.getAttribute("eventName").toString();
         System.out.println(eventName);

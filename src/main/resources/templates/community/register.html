@@ -12,8 +12,9 @@
 <body>
     
     <header>
-        <img src="/images/bft_logo.png" alt="Gym Logo" width="120" height="100">
-        
+        <a th:href="@{/admin/home}">
+            <img src="/images/bft_logo.png" alt="Gym Logo" width="120" height="100">
+        </a>              
         <div class="nav-links">
             <a th:href="@{/community/events}" class="btn fs-6 fw-bold">EVENTS</a>
             <a th:href="@{/community/attending}" class="btn fs-6 fw-bold">ATTENDING</a>
@@ -42,6 +43,10 @@
                         <tr>
                             <td class="pe-3 text-start">Postal Code:</strong></td>
                             <td class="text-start">S<span th:text="${event.postalCode}"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="pe-3 text-start">Location:</strong></td>
+                            <td class="text-start"><span th:text="${event.postalCode}"></span></td>
                         </tr>
                         <tr>
                             <td class="pe-3 text-start">Hosted By:</strong></td>
