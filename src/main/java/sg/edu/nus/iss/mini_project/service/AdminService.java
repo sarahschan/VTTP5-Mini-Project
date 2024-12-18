@@ -33,12 +33,10 @@ public class AdminService {
 
         List<Member> members = new ArrayList<>();
 
-        // Retrieve all members stored in redis
         List<Object> memberMap = redisRepo.getAllValues(Constant.MEMBER_KEY);
 
         for (Object memberObject : memberMap){
             Member m = memberSerializer.jsonToPojo(memberObject.toString());
-                // don't include admin in the list of members
                 if (m.getEmail().equals(adminEmail)){
                     continue;
                 }
@@ -74,7 +72,5 @@ public class AdminService {
 
         return false;
     }
-
-
 
 }

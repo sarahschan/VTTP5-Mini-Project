@@ -1,5 +1,8 @@
 package sg.edu.nus.iss.mini_project.service;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,14 +30,12 @@ public class LoginService {
 
     public Boolean validateLogin(String email, String password){
 
-        // Check if member's email exists in db
         Object memberJsonObject = redisRepo.getValue(Constant.MEMBER_KEY, email);
 
         if (memberJsonObject == null){
             return false;
         }
 
-        // JSON -> POJO
         Member member = memberSerializer.jsonToPojo(memberJsonObject.toString());
 
         return password.equals(member.getPassword());
@@ -46,13 +47,23 @@ public class LoginService {
 
         String userEmail = request.getSession().getAttribute("userID").toString();
 
-        Member member = memberService.getMember(userEmail);
+        Member member = memberService.getMemberPojo(userEmail);
 
         if (member.getPassword().equals(currentPassword)){
             return true;
         }
 
         return false;
+    }
+
+
+    public Boolean checkPasswordCharacters(String newPassword){
+        
+        String regex = "^[a-zA-Z0-9@._-]+$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(newPassword);
+
+        return matcher.matches();
     }
 
 
@@ -67,7 +78,7 @@ public class LoginService {
         
         String userEmail = request.getSession().getAttribute("userID").toString();
 
-        Member member = memberService.getMember(userEmail);
+        Member member = memberService.getMemberPojo(userEmail);
 
         member.setPassword(newPassword);
 

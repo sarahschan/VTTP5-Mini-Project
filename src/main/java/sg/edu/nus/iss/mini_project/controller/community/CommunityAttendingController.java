@@ -39,7 +39,7 @@ public class CommunityAttendingController {
 
 
     @GetMapping("/remove/{eventID}")
-    public String removeAttendance(@PathVariable("eventID") String eventID, Model model){
+    public String removeAttendance(@PathVariable String eventID, Model model){
 
         Event event = eventService.getEventPojo(eventID);
         model.addAttribute("event", event);
@@ -49,7 +49,7 @@ public class CommunityAttendingController {
 
 
     @GetMapping("/remove/confirm/{eventID}")
-    public String removeAttendance(@PathVariable("eventID") String eventID, Model model, HttpSession session){
+    public String removeAttendance(@PathVariable String eventID, Model model, HttpSession session){
 
         try {
 
@@ -66,7 +66,7 @@ public class CommunityAttendingController {
 
 
     @GetMapping("/removed/{eventID}")
-    public String removed(@PathVariable("eventID") String eventID, Model model){
+    public String removed(@PathVariable String eventID, Model model){
 
         Event event = eventService.getEventPojo(eventID);
         model.addAttribute("event", event);

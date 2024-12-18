@@ -31,7 +31,6 @@ public class Member {
         this.attendingEvents = null;
     }
 
-
     public Member(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -40,7 +39,6 @@ public class Member {
         this.hostingEvents = null;
         this.attendingEvents = null;
     }
-
 
     public Member(String firstName, String lastName, String email, String password, List<String> hostingEvents, List<String> attendingEvents) {
         this.firstName = firstName;
@@ -51,7 +49,6 @@ public class Member {
         this.attendingEvents = attendingEvents;
     }
 
-    
 
     @Override
     public String toString() {
@@ -66,8 +63,6 @@ public class Member {
     }
 
 
-
-    // Getters and Setters
     public String getFirstName() {
         return firstName;
     }
@@ -115,4 +110,5 @@ public class Member {
     public void setAttendingEvents(List<String> attendingEvents) {
         this.attendingEvents = attendingEvents;
     }
+    
 }

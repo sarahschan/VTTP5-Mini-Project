@@ -29,7 +29,7 @@ public class CommunityAccountController {
     public String accountDetails(Model model, HttpSession session){
 
         String memberEmail = session.getAttribute("userID").toString();
-        Member member = memberService.getMember(memberEmail);
+        Member member = memberService.getMemberPojo(memberEmail);
 
         model.addAttribute("member", member);
 
@@ -46,10 +46,15 @@ public class CommunityAccountController {
 
 
     @PostMapping(path = "/changepassword", consumes = "application/x-www-form-urlencoded")
-    public String handleChangePassword(@RequestParam("currentPassword") String currentPassword, @RequestParam("newPassword") String newPassword, @RequestParam("repeatPassword") String repeatPassword, Model model){
+    public String handleChangePassword(@RequestParam String currentPassword, @RequestParam String newPassword, @RequestParam String repeatPassword, Model model){
 
         if (!loginService.checkPassword(currentPassword)){
             model.addAttribute("wrongPassword", "Existing password does not match");
+            return "community/changePassword";
+        }
+
+        if (!loginService.checkPasswordCharacters(newPassword)){
+            model.addAttribute("invalidCharacters", "New password can only contain letters, numbers, and the special characters  @  -  _  and  .");
             return "community/changePassword";
         }
 

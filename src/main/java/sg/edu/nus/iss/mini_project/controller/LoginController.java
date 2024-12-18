@@ -37,8 +37,8 @@ public class LoginController {
     }
 
 
-    @PostMapping("login")
-    public String handleLogin(@Valid @ModelAttribute("login") Login login, BindingResult result, Model model, HttpSession session){
+    @PostMapping(path = "login", consumes = "application/x-www-form-urlencoded")
+    public String handleLogin(@Valid @ModelAttribute Login login, BindingResult result, Model model, HttpSession session){
         
         if (result.hasErrors()) {
             model.addAttribute("login", login);
@@ -46,7 +46,7 @@ public class LoginController {
         }
 
 
-        String email = login.getEmail();
+        String email = login.getEmail().toLowerCase();
         String password = login.getPassword();
         Boolean isValid = loginService.validateLogin(email, password);
 

@@ -48,10 +48,9 @@ public class AdminMembersController {
     }
 
 
-    @PostMapping("/add")
-    public String handleAddMember(@Valid @ModelAttribute("member") Member member, BindingResult result, Model model){
+    @PostMapping(path = "/add", consumes = "application/x-www-form-urlencoded")
+    public String handleAddMember(@Valid @ModelAttribute Member member, BindingResult result, Model model){
 
-        // validate fields
         if (result.hasErrors()) {
             model.addAttribute("member", member);
             return "admin/memberAdd";
@@ -66,7 +65,7 @@ public class AdminMembersController {
     @GetMapping("/delete/{member-email}")
     public String confirmDelete(@PathVariable("member-email") String email, Model model){
         
-        Member memberToDelete = memberService.getMember(email);
+        Member memberToDelete = memberService.getMemberPojo(email);
         model.addAttribute("member", memberToDelete);
 
         return "admin/confirmDelete";

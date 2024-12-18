@@ -37,11 +37,10 @@ public class CommunityEventsController {
 
 
     @GetMapping("/register/{eventID}")
-    public String register(@PathVariable("eventID") String eventID, Model model, HttpSession session){
+    public String register(@PathVariable String eventID, Model model, HttpSession session){
         
         Event event = eventService.getEventPojo(eventID);
 
-        // check if already registered or you are hosting
         String userID = session.getAttribute("userID").toString();
         if (event.getAttendees().contains(userID) || event.getHostEmail().equals(userID)){
             return "redirect:/community/events/registered/" + eventID;
@@ -54,7 +53,7 @@ public class CommunityEventsController {
 
 
     @GetMapping("/register/confirm/{eventID}")
-    public String confirmRegister(@PathVariable("eventID") String eventID, Model model, HttpSession session){
+    public String confirmRegister(@PathVariable String eventID, Model model, HttpSession session){
         
         String userID = session.getAttribute("userID").toString();
         
@@ -67,7 +66,7 @@ public class CommunityEventsController {
 
 
     @GetMapping("/register/success/{eventID}")
-    public String registerSuccess(@PathVariable("eventID") String eventID, Model model){
+    public String registerSuccess(@PathVariable String eventID, Model model){
 
         Event event = eventService.getEventPojo(eventID);
         model.addAttribute("event", event);
@@ -77,7 +76,7 @@ public class CommunityEventsController {
 
 
     @GetMapping("/registered/{eventID}")
-    public String alreadyRegistered(@PathVariable("eventID") String eventID, Model model){
+    public String alreadyRegistered(@PathVariable String eventID, Model model){
 
         Event event = eventService.getEventPojo(eventID);
         model.addAttribute("event", event);

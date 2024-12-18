@@ -18,7 +18,7 @@ public class MemberService {
     MemberSerializer memberSerializer;
     
     
-    public Member getMember(String email){
+    public Member getMemberPojo(String email){
 
         String foundMemberJson = redisRepo.getValue(Constant.MEMBER_KEY, email).toString();
 
@@ -39,7 +39,7 @@ public class MemberService {
 
     public String getFullName(String email){
 
-        Member member = getMember(email);
+        Member member = getMemberPojo(email);
 
         String fullName = member.getFirstName() + " " + member.getLastName();
 

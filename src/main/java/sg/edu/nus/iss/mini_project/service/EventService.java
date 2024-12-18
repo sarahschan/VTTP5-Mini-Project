@@ -40,8 +40,7 @@ public class EventService {
 
         redisRepo.saveValue(Constant.EVENT_KEY, event.getEventID(), eventJson);
 
-        // add to the member's array of hosted events
-        Member member = memberService.getMember(hostEmail);
+        Member member = memberService.getMemberPojo(hostEmail);
         List<String> hostingEvents = member.getHostingEvents();
         hostingEvents.add(event.getEventID());
         member.setHostingEvents(hostingEvents);
@@ -55,7 +54,7 @@ public class EventService {
 
     public List<Event> getHostingEvents(String hostEmail){
 
-        Member host = memberService.getMember(hostEmail);
+        Member host = memberService.getMemberPojo(hostEmail);
 
         List<String> hostingEventsIDs = host.getHostingEvents();
 
@@ -132,7 +131,7 @@ public class EventService {
             String jsonEvent = eventSerializer.pojoToJson(event);
             redisRepo.saveValue(Constant.EVENT_KEY, eventID, jsonEvent);
     
-            Member member = memberService.getMember(userID);
+            Member member = memberService.getMemberPojo(userID);
             List<String> attendingEvents = member.getAttendingEvents();
             attendingEvents.add(eventID);
             String memberJson = memberSerializer.pojoToJson(member);
@@ -142,7 +141,6 @@ public class EventService {
 
         } catch (Exception e) {
     
-            // reset event attendees in case error happened at attendingEvents
             Event event = getEventPojo(eventID);
             List<String> attendees = event.getAttendees();
             attendees.remove(userID);
@@ -157,7 +155,7 @@ public class EventService {
 
     public List<Event> getRegisteredEvents(String userID){
 
-        Member member = memberService.getMember(userID);
+        Member member = memberService.getMemberPojo(userID);
 
         List<String> registeredString = member.getAttendingEvents();
 
@@ -177,7 +175,7 @@ public class EventService {
 
     public void removeAttendanceFromUser(String userID, String eventID) {
 
-        Member member = memberService.getMember(userID);
+        Member member = memberService.getMemberPojo(userID);
         List<String> attendingEvents = member.getAttendingEvents();
 
         attendingEvents.removeIf(id -> id.replace("\"", "").equals(eventID));
@@ -209,7 +207,7 @@ public class EventService {
 
         Event event = getEventPojo(eventID);
         String hostID = event.getHostEmail();
-        Member host = memberService.getMember(hostID);
+        Member host = memberService.getMemberPojo(hostID);
 
         List<String> hostingEvents = host.getHostingEvents();
 
@@ -259,4 +257,36 @@ public class EventService {
         }
 
     }
+
+
+    public Boolean eventExists(String eventID){
+        return redisRepo.valueExists(Constant.EVENT_KEY, eventID);
+    }
+
+
+    public String eventJsonString(String eventID){
+        
+        Event event = getEventPojo(eventID);
+        String eventJson = eventSerializer.pojoToJson(event);
+        
+        return eventJson;
+
+    }
+
+
+    public List<String> getAllEventsJson(){
+        
+        Map<Object, Object> entries = redisRepo.getEntries(Constant.EVENT_KEY);
+
+        List<String> eventsJson = new ArrayList<>();
+
+        for (Map.Entry<Object, Object> entry: entries.entrySet()){
+            String eventJson = entry.getValue().toString();
+            eventsJson.add(eventJson);
+        }
+
+        return eventsJson;
+
+    }
+
 }

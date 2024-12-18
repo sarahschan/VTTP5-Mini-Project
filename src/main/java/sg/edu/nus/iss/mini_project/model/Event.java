@@ -85,8 +85,6 @@ public class Event {
     public Event() {
     }
 
-
-    // Create new event constructor
     public Event(String eventName, String description, String hostName, String hostEmail, String hostContact, LocalDateTime startTime, Double durationHours, Double durationMinutes, String location, String postalCode, Double latitude, Double longitude, Double capacity) {
         this.eventID = UUID.randomUUID().toString();
         this.eventName = eventName;
@@ -108,7 +106,6 @@ public class Event {
         this.formattedStartTime = formatTime(startTime);
         this.formattedEndTime = formatTime(endTime);
     }
-
 
     public Event(String eventID, String eventName, String description, String hostName, String hostEmail, String hostContact, LocalDateTime startTime, Double durationHours, Double durationMinutes, String location, String postalCode, Double latitude, Double longitude, Double capacity, Double registered, List<String> attendees) {
         this.eventID = eventID;
@@ -132,9 +129,6 @@ public class Event {
         this.formattedEndTime = formatTime(endTime);
     }
 
-    
-
-    // Json String -> POJO constructor
     public Event(String eventID, String eventName, String description, String hostName, String hostEmail, String hostContact, LocalDateTime startTime, Double durationHours, Double durationMinutes, LocalDateTime endTime, String location, String postalCode, Double latitude, Double longitude, Double capacity, Double registered, List<String> attendees) {
         this.eventID = eventID;
         this.eventName = eventName;

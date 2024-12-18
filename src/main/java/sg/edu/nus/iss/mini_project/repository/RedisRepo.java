@@ -42,4 +42,8 @@ public class RedisRepo {
         return redisTemplate.opsForHash().keys(redisKey);
     }
 
+    public Boolean valueExists(String redisKey, String hashKey){
+        return redisTemplate.opsForHash().hasKey(redisKey, hashKey);
+    }
+
 }

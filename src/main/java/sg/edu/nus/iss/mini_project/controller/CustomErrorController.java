@@ -28,20 +28,14 @@ public class CustomErrorController implements ErrorController{
     @GetMapping()
     public String errorPage(WebRequest webRequest, HttpSession session, Model model){
 
-
-        // Use ErrorAttributeOptions to control which attributes to retrieve
         ErrorAttributeOptions options = ErrorAttributeOptions.of(ErrorAttributeOptions.Include.MESSAGE, ErrorAttributeOptions.Include.STATUS);
 
-        // Get the error details from the ErrorAttributes
         Map<String, Object> errorDetails = errorAttributes.getErrorAttributes(webRequest, options);
 
-        // Extract the error status code
         Integer status = (Integer) errorDetails.get("status");
         
-        // Extract the error message
         String message = (String) errorDetails.get("message");
 
-        // Add error details to the model
         model.addAttribute("status", status);
         model.addAttribute("message", message);
 

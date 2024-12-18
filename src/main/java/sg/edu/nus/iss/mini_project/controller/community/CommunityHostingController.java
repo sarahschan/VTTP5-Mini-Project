@@ -56,7 +56,7 @@ public class CommunityHostingController {
 
 
 
-    @PostMapping("/new")
+    @PostMapping(path = "/new", consumes = "application/x-www-form-urlencoded")
     public String handleNewEvent(@Valid @ModelAttribute Event event, BindingResult result, Model model, HttpSession session){
         
         if (result.hasErrors() || !locationService.isPostalCodeValid(event.getPostalCode())){
@@ -101,7 +101,7 @@ public class CommunityHostingController {
     }
 
 
-    @PostMapping("/edit/{eventID}")
+    @PostMapping(path = "/edit/{eventID}", consumes = "application/x-www-form-urlencoded")
     public String handleEditEvent(@Valid @ModelAttribute Event event, BindingResult result, Model model, HttpSession session){
 
         if (result.hasErrors() || !locationService.isPostalCodeValid(event.getPostalCode()) || !eventService.isCapacityValid(event.getCapacity(), event.getRegistered())){
@@ -167,7 +167,6 @@ public class CommunityHostingController {
     public String deleted(@PathVariable String eventID, Model model, HttpSession session){
 
         String eventName = session.getAttribute("eventName").toString();
-        System.out.println(eventName);
         model.addAttribute("eventName", eventName);
         return "community/eventDeleted";
 
