@@ -74,4 +74,19 @@ public class EventService {
         return redisRepo.getValue(Constant.EVENT_KEY, eventID).toString();
     }
 
+
+    public Event getEventPojo(String eventID){
+        
+        String eventJson = getEventJson(eventID);
+        Event foundEvent = eventSerializer.jsonToPojo(eventJson);
+
+        System.out.println(foundEvent);
+        return foundEvent;
+    }
+
+
+    public Boolean isCapacityValid(Double capacity, Double registered){
+        return capacity >= registered;
+    }
+
 }

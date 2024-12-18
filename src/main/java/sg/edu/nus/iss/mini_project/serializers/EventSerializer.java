@@ -73,7 +73,7 @@ public class EventSerializer {
         Double latitude = jsonObject.getJsonNumber("latitude").doubleValue();
         Double longitude = jsonObject.getJsonNumber("longitude").doubleValue();
         Double capacity = jsonObject.getJsonNumber("capacity").doubleValue();
-        Integer registered = jsonObject.getInt("registered");
+        Double registered = jsonObject.getJsonNumber("registered").doubleValue();
         String formattedEndTime = jsonObject.getString("formattedEndTime");
         String formattedStartTime = jsonObject.getString("formattedStartTime");
         

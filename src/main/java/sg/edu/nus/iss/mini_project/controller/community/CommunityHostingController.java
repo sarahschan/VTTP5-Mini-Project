@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -52,7 +53,7 @@ public class CommunityHostingController {
     public String hostNewEvent(Model model){
         Event event = new Event();
         model.addAttribute("event", event);
-        return "community/newEvent";
+        return "community/eventNew";
     }
 
 
@@ -60,14 +61,14 @@ public class CommunityHostingController {
     @PostMapping("/new")
     public String handleNewEvent(@Valid @ModelAttribute("event") Event event, BindingResult result, Model model, HttpSession session){
         
-        if (!locationService.isPostalCodeValid(event.getPostalCode())){
-            ObjectError postalCodeError = new ObjectError("globalError", "Postal code entered is invalid");
-            result.addError(postalCodeError);
-        }
+        if (result.hasErrors() || !locationService.isPostalCodeValid(event.getPostalCode())){
 
-        if (result.hasErrors()){
+            if (!locationService.isPostalCodeValid(event.getPostalCode())){
+                model.addAttribute("postalCodeErrorMsg", "Postal code entered cannot be found");
+            }
+
             model.addAttribute("event", event);
-            return "community/newEvent";
+            return "community/eventNew";
         }
 
         String hostEmail = session.getAttribute("userID").toString();
@@ -92,4 +93,32 @@ public class CommunityHostingController {
     }
 
 
+    @GetMapping("/edit/{eventID}")
+    public String editEvent(@PathVariable("eventID") String eventID, Model model){
+
+        Event event = eventService.getEventPojo(eventID);
+        model.addAttribute("event", event);
+
+        return "community/eventEdit";
+    }
+
+    @PostMapping("/edit/{eventID}")
+    public String handleEditEvent(@Valid @ModelAttribute("event") Event event, BindingResult result, Model model, HttpSession session){
+
+        if (result.hasErrors() || !locationService.isPostalCodeValid(event.getPostalCode()) || !eventService.isCapacityValid(event.getCapacity(), event.getRegistered())){
+
+            if (!locationService.isPostalCodeValid(event.getPostalCode())){
+                model.addAttribute("postalCodeErrorMsg", "Postal code entered cannot be found");
+            }
+
+            if (!eventService.isCapacityValid(event.getCapacity(), event.getRegistered())){
+                model.addAttribute("capacityErrorMsg", "Cannot lower capacity - There are more people already signed up");
+            }
+
+            model.addAttribute("event", event);
+            return "community/eventNew";
+        }
+
+        return "community/eventEdit";
+    }
 }

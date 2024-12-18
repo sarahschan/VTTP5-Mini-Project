@@ -69,7 +69,7 @@ public class Event {
         @Digits(integer = 3, fraction = 0, message = "Capacity must be a whole number")
     private Double capacity;
 
-    private Integer registered;
+    private Double registered;
 
     private List<String> attendees;
 
@@ -97,7 +97,7 @@ public class Event {
         this.latitude = latitude;
         this.longitude = longitude;
         this.capacity = capacity;
-        this.registered = 0;
+        this.registered = 0.0;
         this.attendees = null;
         this.formattedStartTime = formatTime(startTime);
         this.formattedEndTime = formatTime(endTime);
@@ -107,7 +107,7 @@ public class Event {
     
 
 
-    public Event(String eventID, String eventName, String description, String hostName, String hostEmail, String hostContact, LocalDateTime startTime, Double durationHours, Double durationMinutes, LocalDateTime endTime, String postalCode, Double latitude, Double longitude, Double capacity, Integer registered, List<String> attendees, String formattedStartTime, String formattedEndTime) {
+    public Event(String eventID, String eventName, String description, String hostName, String hostEmail, String hostContact, LocalDateTime startTime, Double durationHours, Double durationMinutes, LocalDateTime endTime, String postalCode, Double latitude, Double longitude, Double capacity, Double registered, List<String> attendees, String formattedStartTime, String formattedEndTime) {
         this.eventID = eventID;
         this.eventName = eventName;
         this.description = description;
@@ -320,12 +320,12 @@ public class Event {
     }
 
 
-    public Integer getRegistered() {
+    public Double getRegistered() {
         return registered;
     }
 
 
-    public void setRegistered(Integer registered) {
+    public void setRegistered(Double registered) {
         this.registered = registered;
     }
     
