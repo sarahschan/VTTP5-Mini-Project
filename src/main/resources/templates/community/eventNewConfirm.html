@@ -27,14 +27,14 @@
 
     <div class="content-container">
         <div class="content-header d-flex justify-content-between align-items-center">
-            <h1>You've registered for <span th:text="${event.eventName}"></span></h1>
+            <h1>Your event <span th:text="${event.eventName}"></span> is confirmed</h1>
         </div>
 
         <div>
-            <h5>See you at the event!</h5>
+            <h5>Thank you for contributing to our community!</h5>
 
             <div class="form-button-container">
-                <a class="btn btn-secondary" th:href="@{/community/events}">Back to events</a>
+                <a class="btn btn-secondary" th:href="@{/community/hosting}">Back to your hosted events</a>
             </div>
 
         </div>

@@ -79,16 +79,18 @@ public class CommunityHostingController {
 
         eventService.saveNewEvent(newEvent, hostEmail);
 
-        return "redirect:/community/hosting/confirm";
+        return "redirect:/community/hosting/confirm/" + newEvent.getEventID();
     }
 
 
 
-    @GetMapping("/confirm")
-    public String confirmEvent(Model model){
-
-        return "community/eventConfirm";
+    @GetMapping("/confirm/{eventID}")
+    public String confirmEvent(@PathVariable("eventID") String eventID, Model model){
+        Event event = eventService.getEventPojo(eventID);
+        model.addAttribute("event", event);
+        return "community/eventNewConfirm";
     }
+
 
 
     @GetMapping("/edit/{eventID}")
@@ -97,6 +99,7 @@ public class CommunityHostingController {
         model.addAttribute("event", event);
         return "community/eventEdit";
     }
+
 
     @PostMapping("/edit/{eventID}")
     public String handleEditEvent(@Valid @ModelAttribute("event") Event event, BindingResult result, Model model, HttpSession session){
@@ -121,6 +124,14 @@ public class CommunityHostingController {
         Event editedEvent = new Event(event.getEventID(), event.getEventName(), event.getDescription(), event.getHostName(), event.getHostEmail(), event.getHostContact(), event.getStartTime(), event.getDurationHours(), event.getDurationMinutes(), event.getPostalCode(), lat, lng, event.getCapacity(), event.getRegistered(), event.getAttendees());
         eventService.saveEditedEvent(editedEvent);
 
-        return "community/eventConfirm";
+        return "redirect:/community/hosting/edit/saved/" + editedEvent.getEventID();
+    }
+
+
+    @GetMapping("/edit/saved/{eventID}")
+    public String savedEdit(@PathVariable("eventID") String eventID, Model model){
+        Event event = eventService.getEventPojo(eventID);
+        model.addAttribute("event", event);
+        return "community/eventEditSaved";
     }
 }

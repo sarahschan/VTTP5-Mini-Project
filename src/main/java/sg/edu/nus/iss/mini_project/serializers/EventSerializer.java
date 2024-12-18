@@ -19,6 +19,7 @@ import sg.edu.nus.iss.mini_project.model.Event;
 public class EventSerializer {
     
     public String pojoToJson(Event event) {
+        
         List<String> attendees = (event.getAttendees() != null) ? event.getAttendees() : new ArrayList<>();
     
         JsonArrayBuilder attendeesArrayBuilder = Json.createArrayBuilder();

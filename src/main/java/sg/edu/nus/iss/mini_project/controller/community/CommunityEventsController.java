@@ -59,10 +59,20 @@ public class CommunityEventsController {
         String userID = session.getAttribute("userID").toString();
         
         if (eventService.register(eventID, userID)){
-            return "community/registerConfirm";
+            return "redirect:/community/events/register/success/" + eventID;
         }
 
         return "errorCommunity";
+    }
+
+
+    @GetMapping("/register/success/{eventID}")
+    public String registerSuccess(@PathVariable("eventID") String eventID, Model model){
+
+        Event event = eventService.getEventPojo(eventID);
+        model.addAttribute("event", event);
+
+        return "community/registerConfirm";
     }
 
 

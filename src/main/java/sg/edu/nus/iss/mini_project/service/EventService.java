@@ -54,13 +54,13 @@ public class EventService {
 
         Member host = memberService.getMember(hostEmail);
 
-        List<String> hostingEventsString = host.getHostingEvents();
+        List<String> hostingEventsIDs = host.getHostingEvents();
 
         List<Event> hostingEvents = new ArrayList<>();
 
-        for (String eventID : hostingEventsString){
-            String eventJsonString = getEventJson(eventID.replace("\"", ""));
-            Event event = eventSerializer.jsonToPojo(eventJsonString);
+        for (String s : hostingEventsIDs){
+            String eventID = s.replace("\"", "");
+            Event event = getEventPojo(eventID);
             hostingEvents.add(event);
         }
 
@@ -149,6 +149,24 @@ public class EventService {
             return false;
         }
     
+    }
+
+
+    public List<Event> getRegisteredEvents(String userID){
+
+        Member member = memberService.getMember(userID);
+
+        List<String> registeredString = member.getAttendingEvents();
+
+        List<Event> registeredEvents = new ArrayList<>();
+
+        for (String s : registeredString){
+            String eventID = s.replace("\"", "");
+            Event event = getEventPojo(eventID);
+            registeredEvents.add(event);
+        }
+
+        return registeredEvents;
     }
 
 }
