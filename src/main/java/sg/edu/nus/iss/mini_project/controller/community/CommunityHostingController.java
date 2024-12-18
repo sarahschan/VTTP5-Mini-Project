@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,7 +39,6 @@ public class CommunityHostingController {
     
     @GetMapping()
     public String hostingPage(HttpSession session, Model model){
-
         List<Event> events = eventService.getHostingEvents(session.getAttribute("userID").toString());
         model.addAttribute("googleApiKey", googleApiKey);
         model.addAttribute("events", events);
@@ -96,7 +94,6 @@ public class CommunityHostingController {
     @GetMapping("/edit/{eventID}")
     public String editEvent(@PathVariable("eventID") String eventID, Model model){
         Event event = eventService.getEventPojo(eventID);
-        System.out.println(event);
         model.addAttribute("event", event);
         return "community/eventEdit";
     }
@@ -122,7 +119,6 @@ public class CommunityHostingController {
         Double lat = latLng[0];
         Double lng = latLng[1];
         Event editedEvent = new Event(event.getEventID(), event.getEventName(), event.getDescription(), event.getHostName(), event.getHostEmail(), event.getHostContact(), event.getStartTime(), event.getDurationHours(), event.getDurationMinutes(), event.getPostalCode(), lat, lng, event.getCapacity(), event.getRegistered(), event.getAttendees());
-        System.out.println(editedEvent);
         eventService.saveEditedEvent(editedEvent);
 
         return "community/eventConfirm";

@@ -35,6 +35,9 @@ public class RedisRepo {
         return redisTemplate.opsForHash().delete(redisKey, hashKey);
     }
 
+    public Map<Object, Object> getEntries(String redisKey){
+        return redisTemplate.opsForHash().entries(redisKey);
+    }
 
 
 
@@ -43,10 +46,7 @@ public class RedisRepo {
         return redisTemplate.opsForHash().hasKey(redisKey, hashKey);
     }
 
-    // <Object, Object> = <HashKeys, HashValues>
-    public Map<Object, Object> getEntries(String redisKey){
-        return redisTemplate.opsForHash().entries(redisKey);
-    }
+
 
     public Set<Object> getKeys(String redisKey) {
         return redisTemplate.opsForHash().keys(redisKey);

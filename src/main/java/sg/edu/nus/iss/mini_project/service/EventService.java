@@ -3,6 +3,7 @@ package sg.edu.nus.iss.mini_project.service;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -95,6 +96,59 @@ public class EventService {
 
         redisRepo.saveValue(Constant.EVENT_KEY, event.getEventID(), eventJson);
 
+    }
+
+
+    public List<Event> getAllEvents(){
+
+        Map<Object, Object> entries = redisRepo.getEntries(Constant.EVENT_KEY);
+
+        List<Event> events = new ArrayList<>();
+
+        for (Map.Entry<Object, Object> entry: entries.entrySet()){
+            String eventJson = entry.getValue().toString();
+            Event event = eventSerializer.jsonToPojo(eventJson);
+            events.add(event);
+        }
+
+        events.sort(Comparator.comparing(Event::getStartTime));
+
+        return events;
+
+    }
+
+
+    public Boolean register(String eventID, String userID){
+
+        try {
+            Event event = getEventPojo(eventID);
+            List<String> attendees = event.getAttendees();
+            attendees.add(userID);
+            Double registered = event.getRegistered();
+            event.setRegistered(registered + 1);
+            String jsonEvent = eventSerializer.pojoToJson(event);
+            redisRepo.saveValue(Constant.EVENT_KEY, eventID, jsonEvent);
+    
+            Member member = memberService.getMember(userID);
+            List<String> attendingEvents = member.getAttendingEvents();
+            attendingEvents.add(eventID);
+            String memberJson = memberSerializer.pojoToJson(member);
+            redisRepo.saveValue(Constant.MEMBER_KEY, userID, memberJson);
+    
+            return true;
+
+        } catch (Exception e) {
+    
+            // reset event attendees in case error happened at attendingEvents
+            Event event = getEventPojo(eventID);
+            List<String> attendees = event.getAttendees();
+            attendees.remove(userID);
+            String jsonEvent = eventSerializer.pojoToJson(event);
+            redisRepo.saveValue(Constant.EVENT_KEY, eventID, jsonEvent);
+    
+            return false;
+        }
+    
     }
 
 }

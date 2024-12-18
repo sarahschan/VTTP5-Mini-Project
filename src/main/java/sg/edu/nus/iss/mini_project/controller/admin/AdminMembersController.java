@@ -80,6 +80,6 @@ public class AdminMembersController {
             return "redirect:/admin/members";
         }
 
-        return null;
+        return "errorAdmin";
     }
 }

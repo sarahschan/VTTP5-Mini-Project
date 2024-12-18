@@ -19,15 +19,14 @@ import sg.edu.nus.iss.mini_project.model.Event;
 public class EventSerializer {
     
     public String pojoToJson(Event event) {
-        
+        List<String> attendees = (event.getAttendees() != null) ? event.getAttendees() : new ArrayList<>();
+    
         JsonArrayBuilder attendeesArrayBuilder = Json.createArrayBuilder();
         
-        if (event.getAttendees() != null) {
-            for (String attendee : event.getAttendees()) {
-                attendeesArrayBuilder.add(attendee);
-            }
+        for (String attendee : attendees) {
+            attendeesArrayBuilder.add(attendee);
         }
-        
+    
         JsonObjectBuilder eventJsonObjectBuilder = Json.createObjectBuilder()
             .add("eventID", event.getEventID())
             .add("eventName", event.getEventName())
@@ -47,10 +46,9 @@ public class EventSerializer {
             .add("attendees", attendeesArrayBuilder)
             .add("formattedStartTime", event.getFormattedStartTime())
             .add("formattedEndTime", event.getFormattedEndTime());
-        
-
+    
         JsonObject eventJsonObject = eventJsonObjectBuilder.build();
-
+    
         return eventJsonObject.toString();
     }
 

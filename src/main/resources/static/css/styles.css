@@ -47,3 +47,9 @@ header {
 .form-button-container {
     margin-top: 20px;
 }
+
+
+.text-full {
+    font-style: italic;
+    color: #555;
+}
