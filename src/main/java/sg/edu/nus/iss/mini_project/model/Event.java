@@ -43,7 +43,7 @@ public class Event {
     private LocalDateTime startTime;
 
         @NotNull(message = "Please set a duration for your event")
-        @Min(value = 1, message = "Event duration must be at least 1 hour")
+        // @Min(value = 1, message = "Event duration must be at least 1 hour")
         @Max(value = 12, message = "Event duration cannot exceed 12 hours")
         @Digits(integer = 2, fraction = 0, message = "Hours must be a whole number")
     private Double durationHours;

@@ -1,5 +1,7 @@
 package sg.edu.nus.iss.mini_project.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -7,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import sg.edu.nus.iss.mini_project.constant.Constant;
@@ -236,11 +239,25 @@ public class EventService {
     }
 
 
-    public void cleanup(){
+    @Scheduled(fixedRate = 120000)  // 2mins
+    @Scheduled(fixedRate = 3600000) // 60mins
+    public void scheduledCleanUp(){
+
+        System.out.println("Running scheduled clean up.....");
+
         Set<Object> eventIDs = redisRepo.getAllKeys(Constant.EVENT_KEY);
+        
         for (Object obj : eventIDs){
+            
+            String eventID = obj.toString();
+            Event event = getEventPojo(eventID);
+
+            if (event.getEndTime().isAfter(LocalDateTime.now())){
+                fullDeleteEvent(eventID);
+                System.out.println("Cleaned up event: " + eventID);
+            }
 
         }
-        
+
     }
 }
