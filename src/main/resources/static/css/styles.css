@@ -14,20 +14,18 @@ header {
     background-color: #787878;
 }
 
-/* Default button styling */
 .nav-links .btn {
-    text-decoration: none; /* Remove underline */
-    color: #000000; /* Initial text color (blue) */
-    font-size: 16px; /* Adjust font size */
-    font-weight: bold; /* Make text bold */
-    background: none; /* Ensure no background styles */
-    border: none; /* Remove border */
-    padding: 20; /* Optional: remove default padding */
+    text-decoration: none;
+    color: #000000;
+    font-size: 16px;
+    font-weight: bold;
+    background: none;
+    border: none;
+    padding: 20;
 }
 
-/* Hover effect: Change text color only */
 .nav-links .btn:hover {
-    color: #e3e3e3; /* Change text color to white */
+    color: #e3e3e3;
 }
 
 
