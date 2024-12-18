@@ -82,6 +82,7 @@ public class Event {
     }
 
 
+    // Create new event constructor
     public Event(String eventName, String description, String hostName, String hostEmail, String hostContact, LocalDateTime startTime, Double durationHours, Double durationMinutes, String postalCode, Double latitude, Double longitude, Double capacity) {
         this.eventID = UUID.randomUUID().toString();
         this.eventName = eventName;
@@ -104,10 +105,31 @@ public class Event {
     }
 
 
+    public Event(String eventID, String eventName, String description, String hostName, String hostEmail, String hostContact, LocalDateTime startTime, Double durationHours, Double durationMinutes, String postalCode, Double latitude, Double longitude, Double capacity, Double registered, List<String> attendees) {
+        this.eventID = eventID;
+        this.eventName = eventName;
+        this.description = description;
+        this.hostName = hostName;
+        this.hostEmail = hostEmail;
+        this.hostContact = hostContact;
+        this.startTime = startTime;
+        this.durationHours = durationHours;
+        this.durationMinutes = durationMinutes;
+        this.endTime = calculateEndTime(startTime, durationHours, durationMinutes);
+        this.postalCode = postalCode;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.capacity = capacity;
+        this.registered = registered;
+        this.attendees = attendees;
+        this.formattedStartTime = formatTime(startTime);
+        this.formattedEndTime = formatTime(endTime);
+    }
+
     
 
-
-    public Event(String eventID, String eventName, String description, String hostName, String hostEmail, String hostContact, LocalDateTime startTime, Double durationHours, Double durationMinutes, LocalDateTime endTime, String postalCode, Double latitude, Double longitude, Double capacity, Double registered, List<String> attendees, String formattedStartTime, String formattedEndTime) {
+    // Json String -> POJO constructor
+    public Event(String eventID, String eventName, String description, String hostName, String hostEmail, String hostContact, LocalDateTime startTime, Double durationHours, Double durationMinutes, LocalDateTime endTime, String postalCode, Double latitude, Double longitude, Double capacity, Double registered, List<String> attendees) {
         this.eventID = eventID;
         this.eventName = eventName;
         this.description = description;
@@ -124,8 +146,8 @@ public class Event {
         this.capacity = capacity;
         this.registered = registered;
         this.attendees = attendees;
-        this.formattedStartTime = formattedStartTime;
-        this.formattedEndTime = formattedEndTime;
+        this.formattedStartTime = formatTime(startTime);
+        this.formattedEndTime = formatTime(endTime);
     }
 
 

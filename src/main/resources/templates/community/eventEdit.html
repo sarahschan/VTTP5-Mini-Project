@@ -27,10 +27,18 @@
 
     <div class="content-container">
         <div class="content-header d-flex justify-content-between align-items-center">
-            <h1>Editing Event: <span th:text="event.eventName"></span></h1>
+            <h1>Editing Event: <span th:text="${event.eventName}"></span></h1>
         </div>
 
-        <form method="POST" th:action="@{/community/hosting/new}" th:object="${event}">
+        <form method="POST" th:action="@{/community/hosting/edit/{eventID}(eventID=${eventID})}" th:object="${event}">
+            
+            <input type="hidden" th:field="*{eventID}">
+            <input type="hidden" th:field="*{hostName}">
+            <input type="hidden" th:field="*{hostEmail}">
+            <input type="hidden" th:field="*{registered}">
+            <input type="hidden" th:field="*{attendees}">
+
+
             <div class="mb-3">
                 <label class="form-label">Event Name</label>
                 <input type="text" class="form-control" th:field="*{eventName}" placeholder="Event name">
@@ -80,7 +88,6 @@
                 <label class="form-label">Capacity</label>
                 <input type="number" step="any" class="form-control" th:field="*{capacity}" placeholder="Capacity">
                 <div class="text-danger" th:if="${#fields.hasErrors('capacity')}" th:errors="*{capacity}"></div>
-                
             </div>
 
             <div class="form-button-container">

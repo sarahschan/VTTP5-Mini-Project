@@ -80,13 +80,21 @@ public class EventService {
         String eventJson = getEventJson(eventID);
         Event foundEvent = eventSerializer.jsonToPojo(eventJson);
 
-        System.out.println(foundEvent);
         return foundEvent;
     }
 
 
     public Boolean isCapacityValid(Double capacity, Double registered){
         return capacity >= registered;
+    }
+
+
+    public void saveEditedEvent(Event event){
+
+        String eventJson = eventSerializer.pojoToJson(event);
+
+        redisRepo.saveValue(Constant.EVENT_KEY, event.getEventID(), eventJson);
+
     }
 
 }

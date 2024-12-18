@@ -89,16 +89,15 @@ public class CommunityHostingController {
     @GetMapping("/confirm")
     public String confirmEvent(Model model){
 
-        return "community/confirmEvent";
+        return "community/eventConfirm";
     }
 
 
     @GetMapping("/edit/{eventID}")
     public String editEvent(@PathVariable("eventID") String eventID, Model model){
-
         Event event = eventService.getEventPojo(eventID);
+        System.out.println(event);
         model.addAttribute("event", event);
-
         return "community/eventEdit";
     }
 
@@ -119,6 +118,13 @@ public class CommunityHostingController {
             return "community/eventNew";
         }
 
-        return "community/eventEdit";
+        Double[] latLng = locationService.getLatAndLng(event.getPostalCode());
+        Double lat = latLng[0];
+        Double lng = latLng[1];
+        Event editedEvent = new Event(event.getEventID(), event.getEventName(), event.getDescription(), event.getHostName(), event.getHostEmail(), event.getHostContact(), event.getStartTime(), event.getDurationHours(), event.getDurationMinutes(), event.getPostalCode(), lat, lng, event.getCapacity(), event.getRegistered(), event.getAttendees());
+        System.out.println(editedEvent);
+        eventService.saveEditedEvent(editedEvent);
+
+        return "community/eventConfirm";
     }
 }
