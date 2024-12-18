@@ -239,7 +239,7 @@ public class EventService {
     }
 
 
-    @Scheduled(fixedRate = 120000)  // 2mins
+    // @Scheduled(fixedRate = 120000)  // 2mins
     @Scheduled(fixedRate = 3600000) // 60mins
     public void scheduledCleanUp(){
 
@@ -252,7 +252,7 @@ public class EventService {
             String eventID = obj.toString();
             Event event = getEventPojo(eventID);
 
-            if (event.getEndTime().isAfter(LocalDateTime.now())){
+            if (event.getEndTime().isBefore(LocalDateTime.now())){
                 fullDeleteEvent(eventID);
                 System.out.println("Cleaned up event: " + eventID);
             }

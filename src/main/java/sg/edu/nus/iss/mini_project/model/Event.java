@@ -56,6 +56,7 @@ public class Event {
 
     private LocalDateTime endTime;
 
+
         @Pattern(regexp = "^\\d{6}$", message = "Please provide a valid Singapore postal code for your event")
     private String postalCode;
 

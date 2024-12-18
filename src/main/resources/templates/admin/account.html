@@ -12,10 +12,11 @@
 <body>
     
     <header>
-        <img src="/images/bft_logo.png" alt="Gym Logo" width="120" height="100">
-        
+        <a th:href="@{/admin/home}">
+            <img src="/images/bft_logo.png" alt="Gym Logo" width="120" height="100">
+        </a>        
         <div class="nav-links">
-            <a href="/admin/home" class="btn fs-6 fw-bold">EVENTS</a>
+            <a th:href="@{/admin/events}" class="btn fs-6 fw-bold">EVENTS</a>
             <a th:href="@{/admin/members}" class="btn fs-6 fw-bold">MEMBERS</a>
             <a th:href="@{/admin/account}" class="btn fs-6 fw-bold">ACCOUNT DETAILS</a>
             <a th:href="@{/admin/logout}" class="btn fs-6 fw-bold">LOGOUT</a>

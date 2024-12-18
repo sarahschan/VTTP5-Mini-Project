@@ -34,7 +34,7 @@
 
             <div th:if="${#lists.isEmpty(events)}">
                 <br>
-                <h5>There are no events being hosted</h5>
+                <h5>There are no events to display</h5>
             </div>
 
             <div th:each="event : ${events}" class="d-flex align-items-center mb-5 border p-4">
