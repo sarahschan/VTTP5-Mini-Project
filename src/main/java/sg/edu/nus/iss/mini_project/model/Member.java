@@ -22,24 +22,23 @@ public class Member {
     private String email;
     private String password;
     
-    // Lists to store events (empty initially, will be populated later)
-    private List<String> hostingEvents;  // Event IDs hosted by the member
-    private List<String> attendingEvents; // Event IDs the member is attending
+    private List<String> hostingEvents;
+    private List<String> attendingEvents;
 
-    // Default constructor for creating a member via form or file
+
     public Member() {
         this.hostingEvents = null;
         this.attendingEvents = null;
     }
 
-    // Constructor for creating a member with initial values
+
     public Member(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.hostingEvents = null;   // Can be added later
-        this.attendingEvents = null; // Can be added later
+        this.hostingEvents = null;
+        this.attendingEvents = null;
     }
 
 

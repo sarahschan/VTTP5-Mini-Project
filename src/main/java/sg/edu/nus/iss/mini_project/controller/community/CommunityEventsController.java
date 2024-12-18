@@ -62,7 +62,7 @@ public class CommunityEventsController {
             return "redirect:/community/events/register/success/" + eventID;
         }
 
-        return "errorCommunity";
+        return "redirect:/error";
     }
 
 

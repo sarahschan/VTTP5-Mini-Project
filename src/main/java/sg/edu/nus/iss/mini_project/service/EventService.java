@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -166,7 +167,80 @@ public class EventService {
             registeredEvents.add(event);
         }
 
+        registeredEvents.sort(Comparator.comparing(Event::getStartTime));
+
         return registeredEvents;
     }
 
+
+    public void removeAttendanceFromUser(String userID, String eventID) {
+
+        Member member = memberService.getMember(userID);
+        List<String> attendingEvents = member.getAttendingEvents();
+
+        attendingEvents.removeIf(id -> id.replace("\"", "").equals(eventID));
+    
+        member.setAttendingEvents(attendingEvents);
+        String memberJson = memberSerializer.pojoToJson(member);
+        redisRepo.saveValue(Constant.MEMBER_KEY, userID, memberJson);
+
+    }
+
+
+    public void removeAttendanceFromEvent(String userID, String eventID){
+
+        Event event = getEventPojo(eventID);
+        List<String> attendees = event.getAttendees();
+        attendees.remove(userID);
+        Double registered = event.getRegistered();
+
+        event.setAttendees(attendees);
+        event.setRegistered(registered - 1);
+
+        String eventJson = eventSerializer.pojoToJson(event);
+        redisRepo.saveValue(Constant.EVENT_KEY, eventID, eventJson);
+
+    }
+
+
+    public void removeHostEvent(String eventID){
+
+        Event event = getEventPojo(eventID);
+        String hostID = event.getHostEmail();
+        Member host = memberService.getMember(hostID);
+
+        List<String> hostingEvents = host.getHostingEvents();
+
+        hostingEvents.removeIf(id -> id.replace("\"", "").equals(eventID));
+
+        host.setHostingEvents(hostingEvents);
+        String memberJson = memberSerializer.pojoToJson(host);
+        redisRepo.saveValue(Constant.MEMBER_KEY, hostID, memberJson);
+
+    }
+
+
+    public void fullDeleteEvent(String eventID){
+
+        Event event = getEventPojo(eventID);
+        
+        List<String> attendees = event.getAttendees();
+        for (String attendee : attendees){
+            removeAttendanceFromUser(attendee, eventID);
+        }
+
+        removeHostEvent(eventID);
+
+        redisRepo.delete(Constant.EVENT_KEY, eventID);
+
+    }
+
+
+    public void cleanup(){
+        Set<Object> eventIDs = redisRepo.getAllKeys(Constant.EVENT_KEY);
+        for (Object obj : eventIDs){
+
+        }
+        
+    }
 }

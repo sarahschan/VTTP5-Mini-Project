@@ -39,27 +39,8 @@ public class RedisRepo {
         return redisTemplate.opsForHash().entries(redisKey);
     }
 
-
-
-    
-    public Boolean hasHashKey(String redisKey, String hashKey){
-        return redisTemplate.opsForHash().hasKey(redisKey, hashKey);
-    }
-
-
-
-    public Set<Object> getKeys(String redisKey) {
+    public Set<Object> getAllKeys(String redisKey) {
         return redisTemplate.opsForHash().keys(redisKey);
     }
 
-
-
-    public Long size(String redisKey){
-        return redisTemplate.opsForHash().size(redisKey);
-    }
-
-    public Boolean expire(String redisKey, Long expireValue){
-        Duration expireDuration = Duration.ofSeconds(expireValue);
-        return redisTemplate.expire(redisKey, expireDuration);
-    }
 }

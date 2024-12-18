@@ -134,4 +134,45 @@ public class CommunityHostingController {
         model.addAttribute("event", event);
         return "community/eventEditSaved";
     }
+
+
+
+    @GetMapping("/delete/{eventID}")
+    public String deleteEvent(@PathVariable("eventID") String eventID, Model model){
+
+        Event event = eventService.getEventPojo(eventID);
+        model.addAttribute("event", event);
+
+        return "community/eventDelete";
+    }
+
+
+    @GetMapping("/delete/confirm/{eventID}")
+    public String deleteEventConfirm(@PathVariable("eventID") String eventID, Model model, HttpSession session){
+
+        try{
+
+            session.setAttribute("eventName", eventService.getEventPojo(eventID).getEventName().toString());
+            eventService.fullDeleteEvent(eventID);
+            return "redirect:/community/hosting/deleted/" + eventID;
+
+        } catch (Exception e){
+            e.printStackTrace();
+            return "redirect:/error";
+        }
+    }
+
+
+    @GetMapping("/deleted/{eventID}")
+    public String deleted(@PathVariable("eventID") String eventID, Model model, HttpSession session){
+
+        String eventName = session.getAttribute("eventName").toString();
+        System.out.println(eventName);
+        model.addAttribute("eventName", eventName);
+        return "community/eventDeleted";
+
+    }
+
+
+
 }
