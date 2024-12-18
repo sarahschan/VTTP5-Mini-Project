@@ -28,26 +28,6 @@ public class AdminService {
     @Value("${admin.email}")
     private String adminEmail;
 
-
-    public List<Member> getMembers(){
-
-        List<Member> members = new ArrayList<>();
-
-        List<Object> memberMap = redisRepo.getAllValues(Constant.MEMBER_KEY);
-
-        for (Object memberObject : memberMap){
-            Member m = memberSerializer.jsonToPojo(memberObject.toString());
-                if (m.getEmail().equals(adminEmail)){
-                    continue;
-                }
-            members.add(m);
-        }
-
-        members.sort(Comparator.comparing(Member::getFirstName));
-
-        return members;
-    }
-
     
     public void saveNewMember(String firstName, String lastName, String email){
 

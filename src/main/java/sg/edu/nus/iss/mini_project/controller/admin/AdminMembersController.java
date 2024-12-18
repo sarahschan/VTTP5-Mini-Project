@@ -30,7 +30,7 @@ public class AdminMembersController {
     @GetMapping()
     public String membersPage(Model model){
 
-        List<Member> members = adminService.getMembers();
+        List<Member> members = memberService.getAllMembersPojo();
         model.addAttribute("members", members);
 
         return "admin/members";
