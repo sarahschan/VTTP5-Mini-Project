@@ -79,8 +79,10 @@ header {
 
 .content-header-image-container {
     width: 100%;
-    height: 625px;
+    flex: 1;
     overflow: hidden;
+    display: flex;
+    align-items: stretch;
 }
 
 .content-header-image {
@@ -140,4 +142,15 @@ footer {
 
 .footer-text-right {
     text-align: right;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.content-header-image-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
