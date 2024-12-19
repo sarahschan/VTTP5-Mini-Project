@@ -79,13 +79,14 @@ header {
 
 .content-header-image-container {
     width: 100%;
-    height: 400px;
+    min-height: 400px;
     overflow: hidden;
+    position: relative;
 }
 
 .content-header-image {
-    background-image: url('/images/events_header.jpg');
-    background-position: 50% 20%;
+    background-image: url('/images/attending_header.jpg');
+    background-position: center;
     background-size: cover;
     width: 100%;
     height: 100%;
@@ -122,8 +123,23 @@ header {
     padding-left: 150px;
 }
 
-.content-header {
-    margin-bottom: 20px;
+.content-body .event-container {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    padding: 20px;
+}
+
+.content-body .map {
+    margin-right: 30px;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.content-body .map img {
+    width: 100%;
+    height: auto;
 }
 
 .form-button-container {

@@ -58,7 +58,7 @@ public class LoginController {
 
         } else {
             
-            session.setAttribute("userID", login.getEmail());
+            session.setAttribute("userID", login.getEmail().toLowerCase());
 
             if (session.getAttribute("userID").equals(adminEmail)){
                 session.setAttribute("userRole", "admin");
