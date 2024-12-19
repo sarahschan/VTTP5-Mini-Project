@@ -154,7 +154,7 @@ public class CommunityHostingController {
 
             session.setAttribute("eventName", eventService.getEventPojo(eventID).getEventName().toString());
             eventService.fullDeleteEvent(eventID);
-            return "redirect:/community/hosting/deleted/" + eventID;
+            return "redirect:/community/hosting/deleted";
 
         } catch (Exception e){
             e.printStackTrace();
@@ -163,8 +163,8 @@ public class CommunityHostingController {
     }
 
 
-    @GetMapping("/deleted/{eventID}")
-    public String deleted(@PathVariable String eventID, Model model, HttpSession session){
+    @GetMapping("/deleted")
+    public String deleted(Model model, HttpSession session){
 
         String eventName = session.getAttribute("eventName").toString();
         model.addAttribute("eventName", eventName);

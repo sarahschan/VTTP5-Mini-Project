@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import sg.edu.nus.iss.mini_project.model.Member;
 import sg.edu.nus.iss.mini_project.service.AdminService;
@@ -65,20 +66,38 @@ public class AdminMembersController {
     @GetMapping("/delete/{member-email}")
     public String confirmDelete(@PathVariable("member-email") String email, Model model){
         
+        String fullName = memberService.getFullName(email);
         Member memberToDelete = memberService.getMemberPojo(email);
+
+        model.addAttribute("memberName", fullName);
         model.addAttribute("member", memberToDelete);
 
-        return "admin/confirmDelete";
+        return "admin/memberDeleteConfirm";
     }
 
 
     @GetMapping("/delete/execute/{member-email}")
-    public String executeDelete(@PathVariable("member-email") String email){
+    public String executeDelete(@PathVariable("member-email") String email, HttpSession session){
         
+        String memberName = memberService.getFullName(email);
+        session.setAttribute("memberName", memberName);
+
         if (adminService.deleteMember(email)){
-            return "redirect:/admin/members";
+            return "redirect:/admin/members/deleted";
         }
 
         return "errorAdmin";
     }
+
+
+    @GetMapping("/deleted")
+    public String deleteConfirm(HttpSession session, Model model){
+
+        String memberName = session.getAttribute("memberName").toString();
+        model.addAttribute("memberName", memberName);
+
+        return "admin/memberDeleted";
+
+    }
+
 }
