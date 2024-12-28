@@ -1,5 +1,6 @@
 package sg.edu.nus.iss.mini_project.controller.community;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ import sg.edu.nus.iss.mini_project.model.Event;
 import sg.edu.nus.iss.mini_project.service.EventService;
 import sg.edu.nus.iss.mini_project.service.LocationService;
 import sg.edu.nus.iss.mini_project.service.MemberService;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 @RequestMapping("/community/hosting")
@@ -171,6 +174,26 @@ public class CommunityHostingController {
         return "community/eventDeleted";
 
     }
+
+
+    @GetMapping("/attendees/{eventID}")
+    public String viewAttendees(@PathVariable String eventID, Model model) {
+        
+        Event event = eventService.getEventPojo(eventID);
+        List<String> attendeesEmail = event.getAttendees();
+        List<String> attendeesNames = new ArrayList<>();
+
+        for (String email : attendeesEmail) {
+            String name = memberService.getFullName(email);
+            attendeesNames.add(name);
+        }
+
+        model.addAttribute("event", event);
+        model.addAttribute("attendees", attendeesNames);
+
+        return "community/hostingAttendees";
+    }
+    
 
 
 

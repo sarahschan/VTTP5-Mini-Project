@@ -33,7 +33,6 @@ public class Event {
 
     private String hostEmail;
 
-        @NotBlank(message = "Please provide your phone number or Telegram handle")
         @Pattern(regexp = "^(9\\d{7}|8\\d{7}|@.*)$", message = "Please provide a valid phone number (9xxxxxxx or 8xxxxxxx) or a Telegram handle (starting with '@')")
     private String hostContact;
 
@@ -42,7 +41,7 @@ public class Event {
         @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime startTime;
 
-        @NotNull(message = "Please set a duration for your event")
+        @NotNull(message = "Please set the hours duration for your event")
         // @Min(value = 1, message = "Event duration must be at least 1 hour")
         @Max(value = 12, message = "Event duration cannot exceed 12 hours")
         @Digits(integer = 2, fraction = 0, message = "Hours must be a whole number")
