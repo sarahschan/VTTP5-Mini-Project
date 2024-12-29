@@ -13,7 +13,7 @@ public class Member {
         @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Name can only contain alphabets and spaces")
     private String firstName;
 
-        @Size(min = 3, max = 30, message = "Last name must be between 3 and 30 characters")
+        @Size(min = 2, max = 30, message = "Last name must be between 2 and 30 characters")
         @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Name can only contain alphabets and spaces")
     private String lastName;
 

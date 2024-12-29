@@ -105,7 +105,7 @@ public class CommunityHostingController {
 
 
     @PostMapping(path = "/edit/{eventID}", consumes = "application/x-www-form-urlencoded")
-    public String handleEditEvent(@Valid @ModelAttribute Event event, BindingResult result, Model model, HttpSession session){
+    public String handleEditEvent(@PathVariable String eventID, @Valid @ModelAttribute Event event, BindingResult result, Model model, HttpSession session){
 
         if (result.hasErrors() || !locationService.isPostalCodeValid(event.getPostalCode()) || !eventService.isCapacityValid(event.getCapacity(), event.getRegistered())){
 
@@ -118,16 +118,17 @@ public class CommunityHostingController {
             }
 
             model.addAttribute("event", event);
-            return "community/eventNew";
+            return "community/eventEdit";
         }
 
         Double[] latLng = locationService.getLatAndLng(event.getPostalCode());
         Double lat = latLng[0];
         Double lng = latLng[1];
-        Event editedEvent = new Event(event.getEventID(), event.getEventName(), event.getDescription(), event.getHostName(), event.getHostEmail(), event.getHostContact(), event.getStartTime(), event.getDurationHours(), event.getDurationMinutes(), event.getLocation(), event.getPostalCode(), lat, lng, event.getCapacity(), event.getRegistered(), event.getAttendees());
+        Event editedEvent = new Event(eventID, event.getEventName(), event.getDescription(), event.getHostName(), event.getHostEmail(), event.getHostContact(), event.getStartTime(), event.getDurationHours(), event.getDurationMinutes(), event.getLocation(), event.getPostalCode(), lat, lng, event.getCapacity(), event.getRegistered(), event.getAttendees());
         eventService.saveEditedEvent(editedEvent);
 
-        return "redirect:/community/hosting/edit/saved/" + editedEvent.getEventID();
+        return "redirect:/community/hosting/edit/saved/" + eventID;
+
     }
 
 

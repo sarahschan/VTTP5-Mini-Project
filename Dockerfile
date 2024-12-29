@@ -17,7 +17,10 @@ WORKDIR /app
 
 COPY --from=builder /src/target/mini-project-0.0.1-SNAPSHOT.jar community_platform.jar
 
-RUN apt update && apt install -y curl
+RUN apt update && apt install -y curl tzdata
+
+ENV TZ=Asia/Singapore
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ENV PORT=8080
 ENV SPRING_DATA_REDIS_HOST=
@@ -30,5 +33,4 @@ ENV GOOGLE_API_KEY=
 
 EXPOSE ${PORT}
 
-
-ENTRYPOINT SERVER_PORT=${PORT} java -jar community_platform.jar
+ENTRYPOINT SERVER_PORT=${PORT} java -Duser.timezone=Asia/Singapore -jar community_platform.jar

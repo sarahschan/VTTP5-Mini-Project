@@ -1,6 +1,7 @@
 package sg.edu.nus.iss.mini_project.service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -236,11 +237,11 @@ public class EventService {
     }
 
 
-    // @Scheduled(fixedRate = 120000)  // 2mins
+    // @Scheduled(fixedRate = 60000)  // 1min
     @Scheduled(fixedRate = 3600000) // 60mins
     public void scheduledCleanUp(){
 
-        System.out.println("Running scheduled clean up.....");
+        System.out.println(LocalDateTime.now() + ": Running scheduled clean up.....");
 
         Set<Object> eventIDs = redisRepo.getAllKeys(Constant.EVENT_KEY);
         

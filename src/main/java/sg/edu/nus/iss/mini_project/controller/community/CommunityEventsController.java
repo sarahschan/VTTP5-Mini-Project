@@ -41,6 +41,11 @@ public class CommunityEventsController {
         
         Event event = eventService.getEventPojo(eventID);
 
+        if (event.getCapacity() <= event.getRegistered()){
+            return "redirect:/community/events/register/full/" + eventID;
+        }
+
+
         String userID = session.getAttribute("userID").toString();
         if (event.getAttendees().contains(userID) || event.getHostEmail().equals(userID)){
             return "redirect:/community/events/registered/" + eventID;
@@ -49,6 +54,14 @@ public class CommunityEventsController {
         model.addAttribute("event", event);
 
         return "community/register";
+    }
+
+    @GetMapping("/register/full/{eventID}")
+    public String eventFull(@PathVariable String eventID, Model model){
+        Event event = eventService.getEventPojo(eventID);
+        model.addAttribute("event", event);
+        
+        return "community/eventFull";
     }
 
 

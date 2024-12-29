@@ -1,108 +1,52 @@
 ﻿first name,last name,email,password
 admin,admin,admin@admin.com,admin
 Sarah,Chan,sarah@email.com,default
-Jie Ming,Tan,jiemingtan@email.com,default
-Wei Lin,Ng,weilin.ng@email.com,default
-Hui Ying,Lee,huixing.lee@email.com,default
-Ahmad,Fazal,ahmad.fazal@email.com,default
-Priya,Patel,priya.patel@email.com,default
-Jia Xuan,Lim,jiaxuan.lim@email.com,default
-Xiu Ying,Zhou,xiuying.zhou@email.com,default
-Yvonne,Chong,yvonne.chong@email.com,default
-Siti,Ismail,siti.ismail@email.com,default
-Jin Wei,Tan,jinwei.tan@email.com,default
-Kai Wei,Ho,kaiwei.ho@email.com,default
-Rahul,Kumar,rahul.kumar@email.com,default
-Ayesha,Ali,ayesha.ali@email.com,default
-Li Wei,Zhang,liwei.zhang@email.com,default
-Ming Wei,Li,mingwei.li@email.com,default
-Shan,Liang,shan.liang@email.com,default
-Nadia,Chong,nadia.chong@email.com,default
-Zara,Ahmed,zara.ahmed@email.com,default
-Hannah,Leong,hannah.leong@email.com,default
-Aaron,Tan,aaron.tan@email.com,default
-Emily,Ng,emily.ng@email.com,default
-Mei Ling,Ho,meiling.ho@email.com,default
-Adrian,Teo,adrian.teo@email.com,default
-Samantha,Goh,samantha.goh@email.com,default
-Wei Ming,Chan,weiming.chan@email.com,default
-Sophia,Li,sophia.li@email.com,default
-Michael,Ng,michael.ng@email.com,default
-Nicole,Sim,nicole.sim@email.com,default
-Shawn,Lee,shawn.lee@email.com,default
-Haruto,Takahashi,haruto.takahashi@email.com,default
-Tian,Lin,tian.lin@email.com,default
-Minh,Tan,minh.tan@email.com,default
-Yi Lin,Chong,yi.lin.chong@email.com,default
-Julia,Müller,julia.mueller@email.com,default
-Vincent,Ho,vincent.ho@email.com,default
-Daniela,Schmidt,daniela.schmidt@email.com,default
-Jocelyn,Chia,jocelyn.chia@email.com,default
-Clarence,Ng,clarence.ng@email.com,default
-David,Li,david.li@email.com,default
-Jun Wei,Lim,junwei.lim@email.com,default
-Jian,Chen,jian.chen@email.com,default
-Daphne,Wong,daphne.wong@email.com,default
-Amara,Patel,amara.patel@email.com,default
-Fiona,Lee,fiona.lee@email.com,default
-Rajesh,Gupta,rajesh.gupta@email.com,default
-Nina,Teo,nina.teo@email.com,default
-Rachel,Tan,rachel.tan@email.com,default
-Anita,Ng,anita.ng@email.com,default
-Alex,Leong,alex.leong@email.com,default
-Vera,Ho,vera.ho@email.com,default
-Jessica,Yeo,jessica.yeo@email.com,default
-Lucas,Wang,lucas.wang@email.com,default
-Anna,Lim,anna.lim@email.com,default
-Maya,Ng,maya.ng@email.com,default
-Fay,Soh,fay.soh@email.com,default
-Siti,Nur,siti.nur@email.com,default
-Tom,Ng,tom.ng@email.com,default
-Helen,Zhou,helen.zhou@email.com,default
-Imran,Faisal,imran.faisal@email.com,default
-Grace,Teo-Ming,grace.teo@email.com,default
-Mia,Ng,mia.ng@email.com,default
-Valeria,Ferrari,valeria.ferrari@email.com,default
-Jasmin,Tan,jasmin.tan@email.com,default
-Peter,Lee,peter.lee@email.com,default
-Yasmin,Chong,yasmin.chong@email.com,default
-Raul,Martinez,raul.martinez@email.com,default
-Daniel,Sim,daniel.sim@email.com,default
-Josephine,Ng,josephine.ng@email.com,default
-Selena,Ho,selena.ho@email.com,default
-Isabelle,Lim,isabelle.lim@email.com,default
-Kavita,Sharma,kavita.sharma@email.com,default
-Shaun,Ho,shaun.ho@email.com,default
-Judy,Teo,judy.teo@email.com,default
-Melissa,Chia,melissa.chia@email.com,default
-Henry,Ng,henry.ng@email.com,default
-Yvonne,Koh,yvonne.koh@email.com,default
-Vincent,Sim,vincent.sim@email.com,default
-Feng,Xu,feng.xu@email.com,default
-Clarissa,Teo,clarissa.teo@email.com,default
-Ethan,Ng,ethan.ng@email.com,default
-Lily,Li,lily.li@email.com,default
-Omar,Ali,omar.ali@email.com,default
-Yong,Tan,yong.tan@email.com,default
-Siti,Hadi,siti.hadi@email.com,default
-Albert,Teo-Ming,albert.teo@email.com,default
-Koh,Lim,koh.lim@email.com,default
-Samantha,Chong,samantha.chong@email.com,default
-John,Doe,john.doe@email.com,default
-Elena,Ng,elena.ng@email.com,default
-James,Koh,james.koh@email.com,default
-Jun,Lee,jun.lee@email.com,default
-Qian,Xu,qian.xu@email.com,default
-Haruto,Yamamoto,haruto.yamamoto@email.com,default
-Adeline,Yeo,adeline.yeo@email.com,default
-Tan,Xiu,tan.xiu@email.com,default
-Lucas,Tan,lucas.tan@email.com,default
-Siti,Zahra,siti.zahra@email.com,default
-Arun,Singh,arun.singh@email.com,default
-Elvin,Goh,elvin.goh@email.com,default
-Lina,Lee,lina.lee@email.com,default
-Maya,Fernandez,maya.fernandez@email.com,default
-Zoe,Chia,zoe.chia@email.com,default
-Karl,Wang,karl.wang@email.com,default
-Carmen,Lee,carmen.lee@email.com,default
-Hassan,Ali,hassan.ali@email.com,default
+Rachael,Wong,rachael@email.com,default
+Kenji,Tan,kenji@email.com,default
+Anika,Nale,anika@email.com,default
+Fran,Vincent,fran@email.com,default
+Gareth,Low,gareth@email.com,default
+Esther,Tan,esther@email.com,default
+Ryan,Choo,ryan@email.com,default
+Ronald,Bay,ronald@email.com,default
+Kenneth,Meyer,kenneth@email.com,default
+Liang Sheng,Tee,liang@email.com,default
+Claudia,Sng,claudia@email.com,default
+Edeline,Goh,ede@email.com,default
+Esther,Cho,esther.cho@email.com,default
+Lilly,Kim,lilly@email.com,default
+Darryl,Quek,darryl@email.com,default
+Gina,Peng,gina@email.com,default
+Jessica,Emily,jessem@email.com,default
+Shauna,Liang,shauna@email.com,default
+Jean,Wong,jean@email.com,default
+Alvin,Ang,alvin@email.com,default
+Deborah,Fung,debfung@email.com,default
+Kelly,Choo,kelly@email.com,default
+Freddy,Tan,freddy@email.com,default
+Jillian,Goh,jillian@email.com,default
+Alicia,Kho,alikho@email.com,default
+Monica,Baey,moni@email.com,default
+Cassandra,Sim,cass@email.com,default
+Xing Yi,Tan,xy@email.com,default
+Jolynn,Swee,jolynn@email.com,default
+Esther,Leong,esther.leong@email.com,default
+Jon,Chan,jon@email.com,default
+Mel,Soh,mel@email.com,default
+Koon Yong,Tan,koonyong@email.com,default
+Jing Wen,Tan,jingwen@email.com,default
+Farris,Tan,farris@email.com,default
+Alan,Lee,alan@email.com,default
+Ian,Choo,ianchoo@email.com,default
+Nikki,Cortez,nikki@email.com,default
+Isabel,Christen,isabel@email.com,default
+Sebastian,Lee,sebastian@email.com,default
+Vincent,Tan,vincent@email.com,default
+Rayen,Tan,rayen@email.com,default
+Fiona,Tay,fiona@email.com,default
+Regina,Rodricks,regina@email.com,default
+Stuart,Ong,stuart@email.com,default
+Jesse,Quek,jesse@email.com,default
+Xuan,Lee,xuan@email.com,default
+Miao,Song,miao@email.com,default
+Benjamin,Tan,benji@email.com,default
