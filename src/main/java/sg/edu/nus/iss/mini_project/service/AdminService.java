@@ -21,6 +21,12 @@ public class AdminService {
     @Autowired
     NameService nameService;
 
+    @Autowired
+    MemberService memberService;
+
+    @Autowired
+    EventService eventService;
+
     @Value("${admin.email}")
     private String adminEmail;
 
@@ -29,16 +35,34 @@ public class AdminService {
 
         String defaultPassword = "default";
 
-        Member newMember = new Member(nameService.formatName(firstName), nameService.formatName(lastName), email, defaultPassword);
+        Member newMember = new Member(nameService.formatName(firstName), nameService.formatName(lastName), email.trim().toLowerCase(), defaultPassword);
 
         String newMemberJson = memberSerializer.pojoToJson(newMember);
 
-        redisRepo.saveValue(Constant.MEMBER_KEY, email, newMemberJson.toString());
+        redisRepo.saveValue(Constant.MEMBER_KEY, email.trim().toLowerCase(), newMemberJson.toString());
 
     }
 
 
     public Boolean deleteMember(String email){
+
+        Member member = memberService.getMemberPojo(email);
+
+        if (member.getHostingEvents() != null){
+            for (String eventID : member.getHostingEvents()){
+                String eventIDClean = eventID.replace("\"", "");
+                eventService.fullDeleteEvent(eventIDClean);
+            }
+        }
+
+
+        if (member.getAttendingEvents() != null){
+            for (String eventID : member.getAttendingEvents()){
+                String eventIDClean = eventID.replace("\"", "");
+                eventService.removeAttendanceFromEvent(email, eventIDClean);
+            }
+        }
+
 
         Long deleted = redisRepo.delete(Constant.MEMBER_KEY, email);
 

@@ -20,7 +20,6 @@ import sg.edu.nus.iss.mini_project.model.Event;
 import sg.edu.nus.iss.mini_project.service.EventService;
 import sg.edu.nus.iss.mini_project.service.LocationService;
 import sg.edu.nus.iss.mini_project.service.MemberService;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
